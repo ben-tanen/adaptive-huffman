@@ -1,100 +1,128 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Overpass", "Lato", sans-serif;
+    font-family: "Raleway", sans-serif;
+}
+
+body {
+    background-color: #dedede;
+}
+
+.sidebar {
+    width: 300px;
+    height: 100vh;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #2e3037;
+    color: white;
 }
 
 .header {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
 }
 
-.header h1, .header h3 {
+.header h1 {
     width: 90%;
     margin: auto;
+    font-size: 30px;
+    font-family: "Roboto Mono";
+    color: #39c0ba;
 }
 
+.instructions {
+    font-size: 14px;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    text-align: justify;
+}
 
+.instructions p {
+    margin-bottom: 15px;
+}
 
 /****************/
 /* PAGE STYLING */
 /****************/
 
 .page-container {
-    width: 850px;
-    height: 480px;
+    width: calc(100% - 305px);
+    height: calc(100vh - 2px);
     margin: auto;
+    margin-top: 2px;
+    display: inline-block;
+    vertical-align: top;
     position: relative;
     overflow: hidden;
-
-    background-color: blue;
-}
-
-#pick-a-tab {
-    position: absolute;
-    width: 150px;
-    margin: auto;
 }
 
 .page {
-    width: calc(100% - 45px);
-    height: 100%;
-    margin-left: 45px;
+    width: 100%;
+    height: calc(100% - 35px);
+    margin-top: 35px;
     position: absolute;
 
-    -webkit-transition: margin-left 0.6s ease;
-    -moz-transition: margin-left 0.6s ease;
-    -o-transition: margin-left 0.6s ease;
-    transition: margin-left 0.6s ease;
+    z-index: 1;
+
+    -webkit-transition: margin-top 0.6s ease;
+    -moz-transition: margin-top 0.6s ease;
+    -o-transition: margin-top 0.6s ease;
+    transition: margin-top 0.6s ease;
 }
 
 .page.closed {
-    margin-left: calc(100%);
+    margin-top: calc(100vh);
 }
 
 .tab {
     width: 150px;
-    height: 45px;
+    height: 35px;
     text-align: center;
 
     position: absolute;
-    left: calc((-150px / 2) + (45px / 2) - 45px - 0px);
+    top: -35px;
 
-    border-radius: 15px 15px 0 0;
+    border-radius: 10px 10px 0 0;
 
     cursor: pointer;
 
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+    z-index: 2;
 
-    background-color: green;
+    background-color: #2e3037;
+}
+
+.tab.top {
+    cursor: default;
 }
 
 .tab#basic {
-    bottom: calc((160px / 2) + (-45px / 2) + 0.5px + 160px * 0);
+    left: 0;
 }
 
 .tab#fgk {
-    bottom: calc((160px / 2) + (-45px / 2) + 0.5px + 160px * 1);
+    left: 160px;
 }
 
 .tab#vitter {
-    bottom: calc((160px / 2) + (-45px / 2) + 160px * 2);
+    left: 320px;
 }
 
 .tab-name {
-    padding-top: 10px;
+    padding-top: 8px;
+    color: #39c0ba;
+    font-family: "Roboto Mono";
 }
 
 .svg-container {
     width: 100%;
     height: 100%;
+    border: 2px #2e3037 solid;
+    background-color: white;
 }
 
+/*
 .svg-container#basic {
     background-color: red;
 }
@@ -106,3 +134,4 @@
 .svg-container#vitter {
     background-color: orange;
 }
+*/
