@@ -18,7 +18,7 @@ body {
 }
 
 .header {
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 10px;
     text-align: center;
 }
@@ -49,9 +49,9 @@ body {
 
 .page-container {
     width: calc(100% - 305px);
-    height: calc(100vh - 2px);
+    height: calc(100vh - 3px);
     margin: auto;
-    margin-top: 2px;
+    margin-top: 3px;
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -77,14 +77,14 @@ body {
 }
 
 .tab {
-    width: 150px;
+    width: 160px;
     height: 35px;
     text-align: center;
 
     position: absolute;
     top: -35px;
 
-    border-radius: 10px 10px 0 0;
+    border-radius: 8px 8px 0 0;
 
     cursor: pointer;
 
@@ -102,11 +102,11 @@ body {
 }
 
 .tab#fgk {
-    left: 160px;
+    left: 170px;
 }
 
 .tab#vitter {
-    left: 320px;
+    left: 340px;
 }
 
 .tab-name {
