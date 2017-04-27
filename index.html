@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizing Adaptive Huffman Coding</title>
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="img/icon.png" /> -->
+
+    <!-- importing jQuery, d3 v4, MathJax -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/d3.v4.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        CommonHTML: {
+            scale: 100
+        },
+        "HTML-CSS": {
+            scale: 100
+        },
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']]
+        }
+    });
+    </script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <!-- styling -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Overpass:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Visualizing Adaptive Huffman Coding</h1>
+        <h3>Ben Tanen, COMP-150: Algorithms and Data Structures</h3>
+    </div>
+    
+    <div class="page-container">
+        <!-- <h3 id="pick-a-tab">Click on one of the tabs to check out Adaptive Huffman Coding</h3> -->
+
+        <div class="page" id="basic">
+            <div class="tab" id="basic">
+                <p class="tab-name">Basic Huffman</p>
+            </div>
+
+            <div class="svg-container" id="basic">
+            </div>
+        </div>
+
+       <div class="page" id="fgk">
+            <div class="tab" id="fgk">
+                <p class="tab-name">FGK</p>
+            </div>
+
+            <div class="svg-container" id="fgk">
+            </div>
+        </div>
+
+        <div class="page closed" id="vitter">
+            <div class="tab" id="vitter">
+                <p class="tab-name">Vitter</p>
+            </div>
+
+            <div class="svg-container" id="vitter">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        
+    </div>
+</body>
+</html>
