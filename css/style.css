@@ -36,6 +36,7 @@ body {
     width: calc(1000px - 450px);
     position: absolute;
     z-index: 2;
+    padding-bottom: 50px;
 }
 
 .mask#basic {
@@ -44,21 +45,31 @@ body {
 }
 
 .mask#fgk {
-    top: calc((100% - 450px) / 2 + 500px);
     right: calc((100% - 1000px) / 2);
 }
 
 .mask h1, .mask h2, .mask h3 {
-    padding: 0 45px 100px 45px;
+    padding: 0 45px;
+    margin-bottom: 15px;
     color: #39c0ba;
     font-family: "Roboto Mono", sans-serif;
     text-align: center;
 }
 
 .mask p {
-    padding: 50px 45px 50px 45px;
+    padding: 0 45px;
     text-align: justify;
+}
+
+.section {
     opacity: 0.4;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    margin: 150px 0;
+}
+
+.section.graph-scroll-active {
+    opacity: 1;
 }
 
 .header {
@@ -68,24 +79,27 @@ body {
     text-align: center;
 }
 
-.header h1, .header h2, .header h3 {
-    padding-bottom: 0;
+.header p {
+    text-align: center;
 }
 
-.header p {
-    opacity: 1;
-    padding: 0;
-    margin-top: 10px;
-    text-align: center;
+.mask#fgk > .section:nth-of-type(1) {
+    margin-top: 190px;
 }
 
 /* D3 styling */
 .tooltip {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: calc(50% - 200px);
+    left: calc(50% + 100px);
     text-align: left;
+    color: black;
     width: 50px;
     font: 12px "Roboto Mono";
+}
+
+.tooltip.shifted {
+    left: calc(50% - 500px);
 }
 
 .node {
