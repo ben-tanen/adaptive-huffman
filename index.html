@@ -23,58 +23,37 @@
     });
     </script>
     <script type="text/javascript" async
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML">
     </script>
-    <script type="text/javascript" src="js/main.js"></script>
-
+    
     <!-- styling -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500|Roboto+Mono:400,500" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="sidebar">
+    <div class="svg-container">
+    </div>
+
+    <div class="mask" id="basic">
         <div class="header">
             <h1>Visualizing Adaptive Huffman Coding</h1>
+            <p>Ben Tanen · COMP-150</p>
         </div>
 
-        <div class="instructions">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio sint commodi officiis quaerat doloremque, dignissimos libero exercitationem et recusandae incidunt dolorem expedita accusantium possimus harum sed tenetur fuga facere eius. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic et, obcaecati. Iusto fuga, laudantium nulla quas consectetur, quasi quo maiores similique, autem dolorum ab doloribus officia temporibus ipsam! Maiores, itaque?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis auctor pretium. Duis in vestibulum dui. Ut tempus risus vitae sagittis porttitor. Integer maximus massa id odio condimentum pretium. Ut nibh est, hendrerit vel risus semper, eleifend porta massa. Cras interdum convallis tellus, eu efficitur sem varius id. Praesent vitae sagittis mauris. Sed sit amet dignissim est. Quisque ullamcorper nec augue eget finibus. Aenean et accumsan orci.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio sint commodi officiis quaerat doloremque, dignissimos libero exercitationem et recusandae incidunt dolorem expedita accusantium possimus harum sed tenetur fuga facere eius. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic et, obcaecati. Iusto fuga, laudantium nulla quas consectetur, quasi quo maiores similique, autem dolorum ab doloribus officia temporibus ipsam! Maiores, itaque?</p>
-        </div>
-    </div>
-    
-    <div class="page-container">
-        <div class="page" id="basic">
-            <div class="tab top" id="basic">
-                <p class="tab-name">Basic Huffman</p>
-            </div>
-
-            <div class="svg-container" id="basic">
-            </div>
-        </div>
-
-       <div class="page closed" id="fgk">
-            <div class="tab" id="fgk">
-                <p class="tab-name">FGK</p>
-            </div>
-
-            <div class="svg-container" id="fgk">
-            </div>
-        </div>
-
-        <div class="page closed" id="vitter">
-            <div class="tab" id="vitter">
-                <p class="tab-name">Vitter</p>
-            </div>
-
-            <div class="svg-container" id="vitter">
-            </div>
-        </div>
+        <p>Morbi viverra dapibus elit quis sagittis. Donec a rutrum velit, nec fringilla justo. Nulla nec magna vitae elit consequat tempor. Praesent interdum, ex non blandit rhoncus, nulla enim viverra ipsum, id laoreet dui tortor congue velit. Nullam tempor mauris vel purus maximus ultrices. Integer eleifend tempus nibh, sed pharetra risus vehicula iaculis. Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
     </div>
 
-    <div class="footer">
-        
+    <div class="mask" id="fgk">
+        <p>Nunc dignissim mi quis arcu malesuada, eu placerat lectus gravida. Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis, lorem purus placerat arcu, sit amet egestas eros eros quis ipsum. Fusce eget dignissim sapien. Fusce mauris quam, feugiat vitae placerat non, placerat ut diam. Nunc efficitur auctor turpis nec bibendum. Nulla diam ante, commodo at ligula a, tristique mattis sem.</p>
+
+        <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
     </div>
+
+    <!-- javascript -->
+    <script type="text/javascript" src="js/huffman.js"></script>
+    <script type="text/javascript" src="js/poly.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
