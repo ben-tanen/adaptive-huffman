@@ -114,16 +114,17 @@ body {
 /* D3 styling */
 .tooltip {
     position: fixed;
-    top: calc(50% - 200px);
-    left: calc(50% + 100px);
+    top: calc(50% - 220px);
+    left: calc(50% + 58px);
     text-align: left;
     color: black;
-    width: 50px;
+    width: 100px;
     font: 12px "Roboto Mono";
+    z-index: 1;
 }
 
 .tooltip.shifted {
-    left: calc(50% - 500px);
+    left: calc(50% - 492px);
 }
 
 .node {

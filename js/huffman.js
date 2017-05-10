@@ -1,3 +1,7 @@
+/*******************/
+/*** HELPER FXNS ***/
+/*******************/
+
 function sort_dict_keys(d) {
     var sortable = [ ];
     for (var k in d) sortable.push([k, d[k]]);
@@ -7,9 +11,14 @@ function sort_dict_keys(d) {
     return sortable.map(function(a) { return a[0]; });
 }
 
-/*********************/
-/*** BASIC HUFFMAN ***/
-/*********************/
+function string_freq(s) {
+    var cs = { };
+    for (var i = 0; i < s.length; i++) {
+        if (s[i] in cs) cs[s[i]] = cs[s[i]] + 1;
+        else cs[s[i]] = 1;
+    }
+    return cs;
+}
 
 // given a dictionary of characters and frequencies
 // output the huffman hierarchy
@@ -40,12 +49,117 @@ function huffman_tree(cs) {
     return t[0];
 }
 
-
-
-
-
 function fgk_tree(cs) {
 
 }
 
-console.log('basic huffman', d3.hierarchy(huffman_tree({"a": 1, "b": 2, "c": 3})));
+/*************/
+/* TREE DATE */
+/*************/
+
+var trees = {
+    "bookkeeper": {
+        "root-pos": [775, 126.5],
+        "gap-size": [20, 50, 1.75],
+        "height": 5,
+        "tree": {
+            "key": "bekopr",
+            "val": 10,
+            "id": 1,
+            "left-child": {
+                "key": "bepr",
+                "val": 6,
+                "id": 2,
+                "left-child": {
+                    "key": "e",
+                    "val": 3,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "bpr",
+                    "val": 3,
+                    "id": 5,
+                    "left-child": {
+                        "key": "b",
+                        "val": 1,
+                        "id": 8,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "pr",
+                        "val": 2,
+                        "id": 9,
+                        "left-child": {
+                            "key": "p",
+                            "val": 1,
+                            "id": 10,
+                            "left-child": null,
+                            "right-child": null
+                        },
+                        "right-child": {
+                            "key": "r",
+                            "val": 1,
+                            "id": 11,
+                            "left-child": null,
+                            "right-child": null
+                        }
+                    }
+                }
+            },
+            "right-child": {
+                "key": "ko",
+                "val": 4,
+                "id": 3,
+                "left-child": {
+                    "key": "k",
+                    "val": 2,
+                    "id": 6,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "o",
+                    "val": 2,
+                    "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    }
+}
+
+// t = tree
+// p = path string
+// h = tree height
+// r = root position (x, y)
+// g = gap (base gap, multiplier)
+function build_tree(id, t, p, h, r, g) {
+    if (!t) return null;
+
+    var n1 = build_tree(id, t['left-child'],  p + '0', h, r, g),
+        n2 = build_tree(id, t['right-child'], p + '1', h, r, g);
+
+    if (t['left-child'] && t['right-child']) {
+        var [n, txt] = new_circ_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['val']);
+    } else {
+        var [n, txt] = new_rect_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['key']);
+    }
+
+    n.attr('id', id + '-' + t['id']);
+    txt.attr('id', id + '-' + t['id']);
+
+    if (n1) {
+        var p1 = connect_p2c(n, n1);
+        p1.attr('id', id + '-' + t['id'] + '-' + t['left-child']['id']);
+    }
+    if (n2) {
+        var p2 = connect_p2c(n, n2);
+        p2.attr('id', id + '-' + t['id'] + '-' + t['right-child']['id']);
+    }
+
+    return n;
+} 

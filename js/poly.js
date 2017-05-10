@@ -1,4 +1,4 @@
-function new_circ_node(px, py, k, v) {
+function new_circ_node(px, py, k, v, t) {
     var r = 15;
 
     var c = svg.append("circle")
@@ -12,14 +12,14 @@ function new_circ_node(px, py, k, v) {
 
     var text = svg.append("text")
         .attr("class", "node-text")
-        .attr("x", px)
-        .attr("y", py + 4)
+        .attr("x", px - 0.5)
+        .attr("y", py + 3.5)
         .attr("px", px)
         .attr("py", py)
-        .text(k);
+        .text(t);
 
     c.on("mouseover", function(d) {
-        tooltip.html("key: " + k + "\nval: " + v);
+        tooltip.html("key: " + k + "<br />val: " + v);
         tooltip.transition().style("opacity", 1);
 
     }).on("mouseout", function(d) {
@@ -31,7 +31,7 @@ function new_circ_node(px, py, k, v) {
     return [c, text];
 }
 
-function new_rect_node(px, py, k, v) {
+function new_rect_node(px, py, k, v, t) {
     var width  = 25,
         height = 25;
 
@@ -51,10 +51,10 @@ function new_rect_node(px, py, k, v) {
         .attr("y",  py + 3)
         .attr("px", px)
         .attr("py", py)
-        .text(k);
+        .text(t);
 
     r.on("mouseover", function(d) {
-        tooltip.html("key: " + k + "\nval: " + v);
+        tooltip.html("key: " + k + "<br />val: " + v);
         tooltip.transition().style("opacity", 1);
 
     }).on("mouseout", function(d) {
@@ -80,6 +80,7 @@ function connect_p2c(p, c) {
     var line = d3.line().curve(d3.curveCardinal);
     var path = line([[x1, y1], [x2, y2], [x3, y3], [x4, y4]]);
     var p = svg.append('path')
+        .classed('edge', true)
         .attr('d', path)
         .style("stroke", "black")
         .style("fill", "none");
@@ -152,6 +153,8 @@ function test() {
     var dx = (width  / 2) - (x_min + (x_max - x_min) / 2),
         dy = (height / 2) - (y_min + (y_max - y_min) / 2);
 
+    console.log(dx, dy);
+
     /*
     svg.append("rect")
         .attr("x", x_min + dx)
@@ -162,3 +165,16 @@ function test() {
         .style("stroke", "black");
     */
 }
+
+function horz_offset(h, p, g, m) {
+    var o = 0;
+    for (var i = 0; i < p.length; i++) {
+        o = o + g * Math.pow(m, h - i - 2) * (p[i] === "0" ? -1 : 1);
+    }
+    return o;
+}
+
+function vert_offset(p, g) {
+    return p.length * 50;
+}
+
