@@ -41,12 +41,12 @@
         <div class="fixed-content hidden" id="freq-table">
             <table>
               <tr>
-                <th>b</th>
-                <th>e</th> 
-                <th>k</th>
-                <th>o</th>
-                <th>p</th>
-                <th>r</th>
+                <th width="16.67%">b</th>
+                <th width="16.67%">e</th> 
+                <th width="16.67%">k</th>
+                <th width="16.67%">o</th>
+                <th width="16.67%">p</th>
+                <th width="16.67%">r</th>
               </tr>
               <tr>
                 <td>1</td>
@@ -65,18 +65,68 @@
         </div>
 
         <div class="section">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis auctor pretium. Duis in vestibulum dui. Ut tempus risus vitae sagittis porttitor. Integer maximus massa id odio condimentum pretium. Ut nibh est, hendrerit vel risus semper, eleifend porta massa. Cras interdum convallis tellus, eu efficitur sem varius id. Praesent vitae sagittis mauris. Sed sit amet dignissim est. Quisque ullamcorper nec augue eget finibus. Aenean et accumsan orci.</p>
+            <p>This is a visual explaination and exploration of adaptive huffman coding and how it compares to traditional static huffman coding. Specifically, we will focus on how our encoding trees might differ when using adaptive vs. static huffman.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis auctor pretium. Duis in vestibulum dui. Ut tempus risus vitae sagittis porttitor. Integer maximus massa id odio condimentum pretium. Ut nibh est, hendrerit vel risus semper, eleifend porta massa. Cras interdum convallis tellus, eu efficitur sem varius id. Praesent vitae sagittis mauris. Sed sit amet dignissim est. Quisque ullamcorper nec augue eget finibus. Aenean et accumsan orci.</p>
+            <p>First, we will explore how traditional huffman coding builds its encoding tree for a specific sting, is this case "bookkeeper". We will then do the same for adaptive huffman coding using the FGK algorithm and compare these two trees. At the end, you can further explore how static vs. huffman coding trees compare through other strings.</p>
+
+            <p>Want to skip ahead? <a href='#fgk'>Click here</a> for the explaination of the adaptive algorithm and <a href='#'>click here</a> to explore other words.</p>
         </div>
 
         <div class="section">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, enim quas laborum non. Eveniet ipsa, beatae saepe reprehenderit mollitia alias rerum. Quos enim pariatur corporis quae, asperiores aliquid ad consequatur.</p>
+            <h3>What is Huffman Coding?</h3>
+
+            <p>Before we get started, let's quickly discuss what exactly huffman coding is. When we transmit information, we generally need to convert some sort of data (text, pictures, etc.) into binary. To do this, we assign codes to help us distinguish between different pieces of data.</p>
+
+            <p>For example, if we had the string "abca", we might assign codes like: a = 00, b = 01, c = 10. This would make it so that our binary encoding of "abca" is "00 01 10 00".</p>
         </div>
 
         <div class="section">
-            <h3>Standard Huffman Coding</h3>
-            <p>Nunc dignissim mi quis arcu malesuada, eu placerat lectus gravida. Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis, lorem purus placerat arcu, sit amet egestas eros eros quis ipsum. Fusce eget dignissim sapien. Fusce mauris quam, feugiat vitae placerat non, placerat ut diam. Nunc efficitur auctor turpis nec bibendum. Nulla diam ante, commodo at ligula a, tristique mattis sem.</p>
+            <p>But what if we wanted to encode "aabaacaa"? If we used our original encoding where we use two bits for each character, we would be treating "a" and "c" with equal importance, even though "a" appears much more.</p>
+
+            <p>Wouldn't it be more efficient if we used fewer bits for "a" and more bits for "c"? This is where huffman coding comes in.</p>
+        </div>
+
+        <div class="section">
+            <p>Huffman coding is a lossless data compression algorithm that assigns variable-length codes based on the frequencies of our input characters.</p>
+
+            <p>In order to determine what code to assign to each character, we will first build a binary tree that will organize our characters based on frequency.</p>
+        </div>
+
+        <div class="section">
+            <h3>Building a Huffman Tree</h3>
+            <p>Our data to encode is the string "bookkeeper". Before we can start encoding, we will build our huffman tree for this string, which will in turn show us what codes to use.</p>
+
+            <p>To start, we need to count the frequency for each character in our string and store these frequencies in a table.</p>
+        </div>
+
+        <div class="section">
+            <p>We will use this table to add nodes and edges that will build up our tree.</p>
+
+            <p>First, we start by adding leaf nodes for the two characters that occur the least. In this case, we have a tie between "b", "p", and "r", so we'll just arbitrarily choose "p" and "r".
+        </div>
+
+        <div class="section">
+            <p>When we add in our leaves for "p" and "r", we will attach them to a parent node for a new pseudo-character "pr". This pseduo-character represents occurences of "p" or "r" so it's frequency is equal to the frequency of "p" plus the frequency of "r".</p>
+
+            <p>We will also update our table to include our new pseudo-character. We can get this by simply merging the columns of "p" and "r".</p>
+        </div>
+
+        <div class="section">
+            <p>With our now reduced table, we can repeat this process again for our updated values. This time we get "b" (with a frequency of 1) and a tie between "k", "o", and "pr". Because of the tie, we can again pick arbitrarily.</p>
+
+            <p>Let's use "b" and our pseudo-character "pr".</p>
+        </div>
+
+        <div class="section">
+            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+        </div>
+
+        <div class="section">
+            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+        </div>
+
+        <div class="section">
+            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
         </div>
     </div>
 
@@ -84,7 +134,7 @@
     </div>
 
     <div class="mask" id="fgk">
-        <div class="section">
+        <div class="section" name="fgk">
             <h3>Adaptive Huffman Coding</h3>
             <p>Nunc dignissim mi quis arcu malesuada, eu placerat lectus gravida. Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis, lorem purus placerat arcu, sit amet egestas eros eros quis ipsum. Fusce eget dignissim sapien. Fusce mauris quam, feugiat vitae placerat non, placerat ut diam. Nunc efficitur auctor turpis nec bibendum. Nulla diam ante, commodo at ligula a, tristique mattis sem.</p>
         </div>
