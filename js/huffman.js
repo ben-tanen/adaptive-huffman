@@ -59,8 +59,8 @@ function fgk_tree(cs) {
 
 var trees = {
     "bookkeeper": {
-        "root-pos": [775, 126.5],
-        "gap-size": [20, 50, 1.75],
+        "root-pos": [775, 76.25],
+        "gap-size": [20, 75, 1.75],
         "height": 5,
         "tree": {
             "key": "bekopr",
@@ -124,6 +124,174 @@ var trees = {
                     "key": "o",
                     "val": 2,
                     "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "mississippi": {
+        "root-pos": [775, 113.75],
+        "gap-size": [25, 75, 2],
+        "height": 4,
+        "tree": {
+            "key": "mips",
+            "val": 11,
+            "id": 1,
+            "left-child": {
+                "key": "s",
+                "val": 4,
+                "id": 2,
+                "left-child": null,
+                "right-child": null
+            },
+            "right-child": {
+                "key": "mip",
+                "val": 7,
+                "id": 3,
+                "left-child": {
+                    "key": "mp",
+                    "val": 3,
+                    "id": 4,
+                    "left-child": {
+                        "key": "m",
+                        "val": 1,
+                        "id": 6,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "p",
+                        "val": 2,
+                        "id": 7,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                },
+                "right-child": {
+                    "key": "i",
+                    "val": 4,
+                    "id": 5,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "engineering": {
+        "root-pos": [775, 113.75],
+        "gap-size": [25, 75, 2],
+        "height": 4,
+        "tree": {
+            "key": "eginr",
+            "val": 11,
+            "id": 1,
+            "left-child": {
+                "key": "gir",
+                "val": 5,
+                "id": 2,
+                "left-child": {
+                    "key": "g",
+                    "val": 2,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "ir",
+                    "val": 3,
+                    "id": 5,
+                    "left-child": {
+                        "key": "i",
+                        "val": 2,
+                        "id": 8,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "r",
+                        "val": 1,
+                        "id": 9,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                }
+            },
+            "right-child": {
+                "key": "en",
+                "val": 6,
+                "id": 3,
+                "left-child": {
+                    "key": "e",
+                    "val": 3,
+                    "id": 6,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "n",
+                    "val": 3,
+                    "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "sleeplessness": {
+        "root-pos": [775, 76.25],
+        "gap-size": [20, 75, 1.75],
+        "height": 5,
+        "tree": {
+            "key": "elnps",
+            "val": 14,
+            "id": 1,
+            "left-child": {
+                "key": "e",
+                "val": 5,
+                "id": 2,
+                "left-child": null,
+                "right-child": null
+            },
+            "right-child": {
+                "key": "lnps",
+                "val": 9,
+                "id": 3,
+                "left-child": {
+                    "key": "lnp",
+                    "val": 4,
+                    "id": 5,
+                    "left-child": {
+                        "key": "np",
+                        "val": 2,
+                        "id": 6,
+                        "left-child": {
+                            "key": "n",
+                            "val": 1,
+                            "id": 8,
+                            "left-child": null,
+                            "right-child": null
+                        },
+                        "right-child": {
+                            "key": "p",
+                            "val": 1,
+                            "id": 9,
+                            "left-child": null,
+                            "right-child": null
+                        }
+                    },
+                    "right-child": {
+                        "key": "l",
+                        "val": 2,
+                        "id": 7,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                },
+                "right-child": {
+                    "key": "s",
+                    "val": 5,
+                    "id": 4,
                     "left-child": null,
                     "right-child": null
                 }

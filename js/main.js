@@ -1,10 +1,6 @@
 $(document).ready(function() {
-    $('.mask#middle').css({
-        'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + $('.mask#basic').height() + 'px)'
-    });
-    
     $('.mask#fgk').css({
-        'top': 'calc(' + $('.mask#middle').css('top') + ' + ' + $('.mask#middle').css('padding-bottom') + ' + ' + $('.mask#middle').height() + 'px)'
+        'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + ($('.mask#basic').height() - 150) + 'px)'
     });
 
     $('.mask#end').css({
@@ -18,13 +14,9 @@ $(document).ready(function() {
     init_scrolling();
 });
 
-$(window).resize(function() {
-    $('.mask#middle').css({
-        'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + $('.mask#basic').height() + 'px)'
-    });
-    
+$(window).resize(function() {    
     $('.mask#fgk').css({
-        'top': 'calc(' + $('.mask#middle').css('top') + ' + ' + $('.mask#middle').css('padding-bottom') + ' + ' + $('.mask#middle').height() + 'px)'
+        'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + $('.mask#basic').height() + 'px)'
     });
 
     $('.mask#end').css({
@@ -38,6 +30,30 @@ $(window).resize(function() {
     } else {
         screen_warning.close();
     }
+
+    if ($(window).scrollTop() + 50 > $('.mask#end').position()['top'] + $('.mask#end').height()) {
+        if ($('.word-select').css('display') == 'none') $('.word-select').fadeIn();
+    } else {
+        if ($('.word-select').css('display') == 'block') $('.word-select').fadeOut();
+    }
+});
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() + 50 > $('.mask#end').position()['top'] + $('.mask#end').height()) {
+        if ($('.word-select').css('display') == 'none') $('.word-select').fadeIn();
+    } else {
+        if ($('.word-select').css('display') == 'block') $('.word-select').fadeOut();
+    }
+});
+
+$('.word-select select').change(function() {
+    svg.selectAll('.node').remove()
+    svg.selectAll('.node-text').remove()
+    svg.selectAll('.edge').remove()
+
+    var w = $('.word-select select').val();
+    var t = trees[w];
+    build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
 });
 
 var screen_warning = new jBox('Notice', {

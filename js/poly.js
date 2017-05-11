@@ -175,6 +175,6 @@ function horz_offset(h, p, g, m) {
 }
 
 function vert_offset(p, g) {
-    return p.length * 50;
+    return p.length * g;
 }
 

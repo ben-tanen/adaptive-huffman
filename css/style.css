@@ -51,11 +51,7 @@ a:hover {
 .mask#basic {
     top: calc((100% - 450px) / 2);
     left: calc((100% - 1000px) / 2);
-}
-
-.mask#middle {
-    width: 100%;
-    height: 150px;
+    padding-bottom: 140px;
 }
 
 .mask#fgk {
@@ -78,19 +74,15 @@ a:hover {
     width: 540px;
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 20;
+    opacity: 0;
     padding-top: calc((100vh - 450px) / 2);
     background-color: rgba(46, 48, 55, 0.9);
     -moz-box-shadow:    0 25px 25px rgba(46, 48, 55, 0.9);
     -webkit-box-shadow: 0 25px 25px rgba(46, 48, 55, 0.9);
     box-shadow:         0 25px 25px rgba(46, 48, 55, 0.9);
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-}
-
-.fixed-content.hidden {
-    opacity: 0;
-    z-index: -10;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
 }
 
 #freq-table table {
@@ -148,7 +140,7 @@ a:hover {
 }
 
 .mask#fgk > .section:nth-of-type(1) {
-    margin-top: 120px;
+    margin-top: 190px;
 }
 
 #screen-warning .jBox-container {
@@ -160,6 +152,22 @@ a:hover {
     border-radius: 5px;
     background-color: #e65050;
     text-align: center;
+}
+
+.word-select {
+    width: 400px;
+    position: fixed;
+    top: calc((((100vh - 450px) / 2) - 29px) / 2);
+    left: calc((100vw - 400px) / 2);
+    font-size: 20px;
+    z-index: 100;
+    display: none;
+}
+
+.word-select select {
+    width: 250px;
+    margin-left: 10px;
+    font-size: 20px;
 }
 
 /* D3 styling */

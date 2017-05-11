@@ -172,7 +172,7 @@ var fxns = [
     },{
         "backward": none,
         "forward":  function() {
-            $('#freq-table').removeClass('hidden');
+            d3.select('#freq-table').style('display','block').transition().style('opacity', 1);
 
             var t = trees['bookkeeper'];
             build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
@@ -182,7 +182,9 @@ var fxns = [
         },
     },{
         "backward": function() {
-            $('#freq-table').addClass('hidden');
+            d3.select('#freq-table')
+                .transition().style('opacity', 0)
+                .transition().delay(200).style('display','none');
 
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
@@ -334,11 +336,13 @@ var fxns = [
                 .transition().delay(100).style('display', 'none');
         },
         "forward":  function() {
-            $('#freq-table').addClass('hidden');
+            d3.select('#freq-table')
+                .transition().style('opacity', 0)
+                .transition().delay(200).style('display','none');
         },
     },{
         "backward": function() {
-            $('#freq-table').removeClass('hidden');
+            d3.select('#freq-table').style('display', 'block').transition().style('opacity', 1);
         },
         "forward":  function() {
             svg.select('.node#basic-1').transition().style('fill', '#3852ad');
@@ -349,7 +353,7 @@ var fxns = [
 
             svg.append("text")
                 .attr("x", 775)
-                .attr("y", 393.75)
+                .attr("y", 427.5)
                 .text("p = 0110")
                 .style("font-family", "Roboto Mono")
                 .style("font-size", "28px")
@@ -362,7 +366,7 @@ var fxns = [
         },
     },{
         "backward": function() {
-            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('.node').transition().style('fill', '#2e3037');
             svg.selectAll('text').filter(function() {
                 return d3.select(this).text() === "p = 0110";
             })
@@ -370,7 +374,7 @@ var fxns = [
                 .transition().delay(150).remove();
         },
         "forward":  function() {
-            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('.node').transition().style('fill', '#2e3037');
             svg.selectAll('text').filter(function() {
                 return d3.select(this).text() === "p = 0110";
             })
@@ -383,7 +387,7 @@ var fxns = [
 
             svg.append("text")
                 .attr("x", 775)
-                .attr("y", 393.75)
+                .attr("y", 427.5)
                 .text("k = 10")
                 .style("font-family", "Roboto Mono")
                 .style("font-size", "28px")
@@ -396,7 +400,7 @@ var fxns = [
         },
     },{
         "backward": function() {
-            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('.node').transition().style('fill', '#2e3037');
             svg.selectAll('text').filter(function() {
                 return d3.select(this).text() === "k = 10";
             })
@@ -411,7 +415,7 @@ var fxns = [
 
             svg.append("text")
                 .attr("x", 775)
-                .attr("y", 393.75)
+                .attr("y", 427.5)
                 .text("p = 0110")
                 .style("font-family", "Roboto Mono")
                 .style("font-size", "28px")
@@ -422,13 +426,51 @@ var fxns = [
                 .delay(500)
                 .style("opacity", 1);
         },
-        "forward":  none,
+        "forward":  function() {
+            svg.selectAll('.node').transition().style('fill', '#2e3037');
+            svg.selectAll('text').filter(function() {
+                return d3.select(this).text() === "k = 10";
+            })
+                .transition().style('opacity', 0)
+                .transition().delay(150).remove();
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            svg.select('.node#basic-1').transition().style('fill', '#3852ad');
+            svg.select('.node#basic-3').transition().style('fill', '#3852ad');
+            svg.select('.node#basic-6').transition().style('fill', '#3852ad');
+
+            svg.append("text")
+                .attr("x", 775)
+                .attr("y", 427.5)
+                .text("k = 10")
+                .style("font-family", "Roboto Mono")
+                .style("font-size", "28px")
+                .style("text-anchor", "middle")
+                .style("fill", "#39C0BA")
+                .style("opacity", 0)
+                .transition()
+                .delay(250)
+                .style("opacity", 1);
+        },
+        "forward":  function() {
+            console.log('onto adaptive');
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            svg.selectAll('.node').remove();
+            svg.selectAll('.node-text').remove();
+            svg.selectAll('.edge').remove();
+
+            var t = trees['bookkeeper'];
+            build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+        },
+        "forward":  function() {
+            var t = trees['bookkeeper'];
+            build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+
+            $('.word-select select').val('bookkeeper');
+        },
     },{
         "backward": none,
         "forward":  none,
