@@ -58,7 +58,7 @@ function fgk_tree(cs) {
 /*************/
 
 var trees = {
-    "bookkeeper": {
+    "bookkeeper-1": {
         "root-pos": [775, 76.25],
         "gap-size": [20, 75, 1.75],
         "height": 5,
@@ -130,7 +130,91 @@ var trees = {
             }
         }
     },
-    "mississippi": {
+    "bookkeeper-2": {
+        "root-pos": [225, 38.75],
+        "gap-size": [20, 75, 1.5],
+        "height": 6,
+        "tree": {
+            "key": "bekopr",
+            "val": 10,
+            "id": 1,
+            "left-child": {
+                "key": "ok",
+                "val": 4,
+                "id": 2,
+                "left-child": {
+                    "key": "o",
+                    "val": 2,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "k",
+                    "val": 2,
+                    "id": 5,
+                    "left-child": null,
+                    "right-child": null
+                }
+            },
+            "right-child": {
+                "key": "bepr",
+                "val": 6,
+                "id": 3,
+                "left-child": {
+                    "key": "bpr",
+                    "val": 3,
+                    "id": 6,
+                    "left-child": {
+                        "key": "b",
+                        "val": 1,
+                        "id": 8,
+                        "left-child": null,
+                        "right-child": null              
+                    },
+                    "right-child": {
+                        "key": "pr",
+                        "val": 2,
+                        "id": 9,
+                        "left-child": {
+                            "key": "r",
+                            "val": 1,
+                            "id": 10,
+                            "left-child": {
+                                "key": "-",
+                                "val": 0,
+                                "id": 12,
+                                "left-child": null,
+                                "right-child": null 
+                            },
+                            "right-child": {
+                                "key": "r",
+                                "val": 1,
+                                "id": 13,
+                                "left-child": null,
+                                "right-child": null
+                            }
+                        },
+                        "right-child": {
+                            "key": "p",
+                            "val": 1,
+                            "id": 11,
+                            "left-child": null,
+                            "right-child": null   
+                        }                        
+                    }
+                },
+                "right-child": {
+                    "key": "e",
+                    "val": 3,
+                    "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "mississippi-1": {
         "root-pos": [775, 113.75],
         "gap-size": [25, 75, 2],
         "height": 4,
@@ -178,7 +262,7 @@ var trees = {
             }
         }
     },
-    "engineering": {
+    "engineering-1": {
         "root-pos": [775, 113.75],
         "gap-size": [25, 75, 2],
         "height": 4,
@@ -238,7 +322,7 @@ var trees = {
             }
         }
     },
-    "sleeplessness": {
+    "sleeplessness-1": {
         "root-pos": [775, 76.25],
         "gap-size": [20, 75, 1.75],
         "height": 5,
@@ -297,7 +381,67 @@ var trees = {
                 }
             }
         }
-    }
+    },
+    "aardvark-1": {
+        "root-pos": [775, 113.75],
+        "gap-size": [25, 75, 2],
+        "height": 4,
+        "tree": {
+            "key": "adkrv",
+            "val": 8,
+            "id": 1,
+            "left-child": {
+                "key": "dkv",
+                "val": 3,
+                "id": 2,
+                "left-child": {
+                    "key": "d",
+                    "val": 1,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "kv",
+                    "val": 2,
+                    "id": 5,
+                    "left-child": {
+                        "key": "k",
+                        "val": 1,
+                        "id": 8,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "v",
+                        "val": 1,
+                        "id": 9,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                }
+            },
+            "right-child": {
+                "key": "ar",
+                "val": 5,
+                "id": 3,
+                "left-child": {
+                    "key": "a",
+                    "val": 3,
+                    "id": 6,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "r",
+                    "val": 2,
+                    "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
 }
 
 // t = tree

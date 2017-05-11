@@ -38,7 +38,7 @@
     </div>
 
     <div class="mask" id="basic">
-        <div class="fixed-content hidden" id="freq-table">
+        <div class="fixed-content" id="freq-table">
             <table>
               <tr>
                 <th width="16.67%">b</th>
@@ -69,7 +69,7 @@
 
             <p>First, we will explore how traditional Huffman coding builds its encoding tree for a specific string, in this case "bookkeeper". We will then do the same for adaptive Huffman coding using the FGK algorithm and compare these two trees. At the end, you can further explore how static vs. Huffman coding trees compare through other strings.</p>
 
-            <p>Want to skip ahead? <a href='#fgk'>Click here</a> for the explanation of the adaptive FGK algorithm and <a href='#'>click here</a> to explore other words.</p>
+            <p>Want to skip ahead? <span class="link" onclick="$(window).scrollTop($('.mask#fgk').offset().top + 150)">Click here</span> for the explanation of the adaptive FGK algorithm and <span class="link">click here</span> to explore other words.</p>
         </div>
 
         <div class="section">
@@ -221,13 +221,98 @@
     </div>
 
     <div class="mask" id="fgk">
-        <div class="section" name="fgk">
+        <div class="fixed-content" id="fgk-input">
+            <p><span id='unseen'>bookkeeper</span></p>
+        </div>
+
+        <div class="section">
             <h3>Adaptive Huffman Coding</h3>
+            <p>Reasoning for using adaptive Huffman...</p>
+
             <p>Nunc dignissim mi quis arcu malesuada, eu placerat lectus gravida. Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis, lorem purus placerat arcu, sit amet egestas eros eros quis ipsum. Fusce eget dignissim sapien. Fusce mauris quam, feugiat vitae placerat non, placerat ut diam. Nunc efficitur auctor turpis nec bibendum. Nulla diam ante, commodo at ligula a, tristique mattis sem.</p>
         </div>
 
         <div class="section">
-            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+            <p>As it was before, we build our FGK tree with leaves for characters and interior nodes for pseudo-characters. As with static Huffman, an interior node's frequency will be equal to the sum of the frequencies of its children.</p>
+
+            <p>However, there are two major differences between traditional Huffman tree and the FGK tree.</p>
+        </div>
+
+        <div class="section">
+            <p>First, our FGK tree must satisfy the <i>Sibling Property</i>. In order to do this, our tree must meet the following conditions:</p>
+
+            <ol>
+                <li>All nodes in our tree (except for the root) must have a sibling.</li>
+                <li>The nodes can be listed (from left to right, bottom to top) in order of increasing value.</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <p>Take this tree as an example.</p>
+
+            <p>First of all, each node (except for the root) has a sibling, so the tree meets the first condition. Next, we can see that the values of our nodes increase as we look from left to right and bottom to top in our tree.</p>
+
+            <p>Thus, we can see this tree satisfies the sibling property.
+        </div>
+
+        <div class="section">
+            <p>Now consider this tree as another example.</p>
+
+            <p>While every node has a sibling, we can see the nodes appear out of order (since $6 \not < 4$). Thus we get a conflict of the sibling property</p>
+        </div>
+
+        <div class="section">
+            <p>However, if we simply swap our conflicting nodes (and their subtrees), we now satisfy the sibling property.</p>
+
+            <p>The ability to swap conflicting nodes to maintain the sibling property will come in handy when building our FGK tree.</p>
+        </div>
+
+        <div class="section">
+            <p>The second major difference from traditional Huffman trees to FGK trees is our use of a <i>null node</i>.</p>
+
+            <p>In our traditional Huffman tree, we build our tree from the bottom up (start with leaves and build up to our root) using our frequency table.</p>
+
+            <p>For adaptive Huffman coding, we are reading our input and building our tree at the same time (without first counting frequencies). As a result, we must build our FGK top down (start with a root and build down to our leaves). We use our null node as an sibling for new character nodes we will add. This way we will still maintain the sibling property.</p>
+        </div>
+
+        <div class="section">
+            <p>Let's see how all of this looks while building a FGK tree for "bookkeeper".</p>
+
+            <p>Because we are building our tree on the fly, we will update our tree based on the character we read in. If the character is new, we'll add it to our tree using the null node. If we've seen the character already, we'll simply update its frequency in our tree.</p>
+        </div>
+
+        <div class="section">
+            <p>Let's consider our first input character, "b".</p>
+
+            <p>This is our first "b" so we will have to add it into our tree. We can make our "b" node siblings with the null node and then make them both children of a new interior node.</p>
+        </div>
+
+        <div class="section">
+            <p>After inserting each new node, we must make sure that we don't violate the sibling property.</p>
+
+            <p>Because we will always insert new leaves as a sibling of the null node, we know that we will never violate the first condition of the sibling property.</p>
+
+            <p>We will need to make sure that our nodes are always in the right order (increasing in value from left to right and bottom to top). To do this, we will incrementally walk up the tree and update the parent chain between our new leaf and the root. If we ever encounter conflicting nodes, we can swap them.</p>
+        </div>
+
+        <div class="section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
         </div>
     </div>
 
@@ -241,6 +326,7 @@
             <option value="mississippi">mississippi</option>
             <option value="engineering">engineering</option>
             <option value="sleeplessness">sleeplessness</option>
+            <option value="aardvark">aardvark</option>
         </select>
     </div>
 

@@ -4,7 +4,7 @@ $(document).ready(function() {
     });
 
     $('.mask#end').css({
-        'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
+        'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + '+ $('.mask#fgk').height() + 'px)'
     });
 
     $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 600) + 'px');
@@ -20,7 +20,7 @@ $(window).resize(function() {
     });
 
     $('.mask#end').css({
-        'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
+        'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
     });
 
     $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 600) + 'px');
@@ -40,9 +40,15 @@ $(window).resize(function() {
 
 $(window).scroll(function() {
     if ($(window).scrollTop() + 50 > $('.mask#end').position()['top'] + $('.mask#end').height()) {
-        if ($('.word-select').css('display') == 'none') $('.word-select').fadeIn();
+        if ($('.word-select').css('display') == 'none') {
+            $('.word-select').fadeIn();
+            $('.tooltip').removeClass('left').addClass('middle');
+        }
     } else {
-        if ($('.word-select').css('display') == 'block') $('.word-select').fadeOut();
+        if ($('.word-select').css('display') == 'block') {
+            $('.word-select').fadeOut();
+            $('.tooltip').removeClass('middle').addClass('left');
+        }
     }
 });
 
@@ -51,9 +57,11 @@ $('.word-select select').change(function() {
     svg.selectAll('.node-text').remove()
     svg.selectAll('.edge').remove()
 
-    var w = $('.word-select select').val();
-    var t = trees[w];
-    build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+    var w = $('.word-select select').val();    
+    var t1 = trees[w + '-1'];
+    var t2 = trees[w + '-2'];
+    build_tree('basic', t1['tree'], '', t1['height'], t1['root-pos'], t1['gap-size']);
+    if (t2) build_tree('fgk', t2['tree'], '', t2['height'], t2['root-pos'], t2['gap-size']);
 });
 
 var screen_warning = new jBox('Notice', {
