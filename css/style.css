@@ -118,7 +118,7 @@ a:hover {
 
 .section {
     padding: 0 45px;
-    opacity: 0.4;
+    opacity: 0.2;
     -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
     margin: 150px 0;

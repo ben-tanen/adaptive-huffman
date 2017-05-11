@@ -112,21 +112,43 @@
         </div>
 
         <div class="section">
-            <p>With our now reduced table, we can repeat this process again for our updated values. This time we get "b" (with a frequency of 1) and a tie between "k", "o", and "pr". Because of the tie, we can again pick arbitrarily.</p>
+            <p>With a now reduced table, we can repeat this process again for our updated values.</p>
 
-            <p>Let's use "b" and our pseudo-character "pr".</p>
+            <p>As we can see, "b" has the lowest frequency in our table so we'll use that. For the second lowest frequency, there is a tie between "k", "o", and "pr", so we can again pick arbitrarily. Let's use our pseudo-character "pr".</p>
         </div>
 
         <div class="section">
-            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+            <p>Because we don't have a leaf node for "b" yet, we will have to add that into our tree.</p>
+
+            <p>Then, as we did before, we'll attach our "b" node and our "pr" node to a parent node for a new pseduo-character "bpr".</p>
+
+            <p>Finally, we'll update our table to reflect our new pseudo-character.</p>
         </div>
 
         <div class="section">
-            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+            <p>It looks like our tree is coming along, but it doesn't quite have everything yet.</p>
+
+            <p>To keep going, we can repeat this process again...</p>
         </div>
 
         <div class="section">
-            <p>Morbi a metus arcu. Nullam in orci vel urna commodo tincidunt eget et dolor. Proin et sagittis enim. Etiam id ligula nec velit mattis lacinia. Praesent imperdiet in nibh quis auctor. Praesent ornare dui et sapien luctus condimentum. Mauris non lorem fringilla, ornare nibh vitae, porta ante. Nullam nec tristique urna. Maecenas eleifend erat a vehicula elementum. In posuere, lacus eu facilisis auctor, odio purus laoreet massa, vel egestas felis ex eu dui.</p>
+            <p style="text-align: center;">...and again</p>
+        </div>
+
+        <div class="section">
+            <p style="text-align: center;">...and again</p>
+        </div>
+
+        <div class="section">
+            <p>...until our table is only left with one value, a pseudo-character containing all of our original characters. This means we're done building our huffman tree!</p>
+
+            <p>But how do we use this tree to assign codes?</p>
+        </div>
+
+        <div class="section">
+            <p">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem inventore nulla doloribus ut modi animi, nostrum deserunt obcaecati, repudiandae, voluptas, in porro dolorum dolor et illum itaque aliquam asperiores eum! Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio commodi impedit doloribus voluptas, tempora similique molestiae explicabo non praesentium, possimus qui totam velit tenetur omnis perferendis aspernatur fuga odio. Mollitia.</p>
         </div>
     </div>
 

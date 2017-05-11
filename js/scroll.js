@@ -6,11 +6,12 @@ function init_scrolling() {
             if (scroll_pos < i) {
                 for (var j = scroll_pos; j < i; j++) {
                     console.log('scrolling forward:', j, scroll_pos);
-                    fxns[j]['forward']()
+                    fxns[j]['forward']();
                 }
             } else {
                 console.log('scrolling backward:', i, scroll_pos);
-                fxns[scroll_pos]['backward']()
+                clearTimeout(timeout);
+                fxns[scroll_pos]['backward']();
             }
 
             scroll_pos = i;
@@ -41,6 +42,7 @@ function clear_text() {
 }
 
 var scroll_pos = 0;
+var timeout = null;
 var none = function() { return; };
 var fxns = [
     {
@@ -223,19 +225,25 @@ var fxns = [
         "forward":  function() {
             $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
             $('#freq-table th:nth-of-type(' + 1 + '), #freq-table td:nth-of-type(' + 1 + ')').addClass('highlight');
+        },
+    },{
+        "backward": function() {
+            $('#freq-table th, #freq-table td').removeClass('highlight');
+        },
+        "forward":  function() {
+            update_freq_table([['bpr', 3], ['e', 3], ['k', 2], ['o', 2]]);
 
-            setTimeout(function() {
-                update_freq_table([['bpr', 3], ['e', 3], ['k', 2], ['o', 2]]);
-
-                svg.selectAll('#basic-5').style('display', 'initial').transition().style('opacity', 1);
-                svg.selectAll('#basic-8').style('display', 'initial').transition().style('opacity', 1);
-                svg.select('.edge#basic-5-8').style('display', 'initial').transition().style('opacity', 1);
-                svg.select('.edge#basic-5-9').style('display', 'initial').transition().style('opacity', 1);
-            },1500);
+            svg.selectAll('#basic-5').style('display', 'initial').transition().style('opacity', 1);
+            svg.selectAll('#basic-8').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-5-8').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-5-9').style('display', 'initial').transition().style('opacity', 1);
         },
     },{
         "backward": function() {
             update_freq_table([['b', 1], ['e', 3], ['k', 2], ['o', 2], ['pr', 2]]);
+
+            $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
+            $('#freq-table th:nth-of-type(' + 1 + '), #freq-table td:nth-of-type(' + 1 + ')').addClass('highlight');
 
             svg.selectAll('#basic-5')
                 .transition().style('opacity', 0)
@@ -250,6 +258,87 @@ var fxns = [
                 .transition().style('opacity', 0)
                 .transition().delay(100).style('display', 'none');
         },
+        "forward":  function() {
+            update_freq_table([['bpr', 3], ['e', 3], ['ko', 4]]);
+
+            svg.selectAll('#basic-3').style('display', 'initial').transition().style('opacity', 1);
+            svg.selectAll('#basic-6').style('display', 'initial').transition().style('opacity', 1);
+            svg.selectAll('#basic-7').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-3-6').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-3-7').style('display', 'initial').transition().style('opacity', 1);
+        },
+    },{
+        "backward": function() {
+            update_freq_table([['bpr', 3], ['e', 3], ['k', 2], ['o', 2]]);
+
+            svg.selectAll('#basic-3')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.selectAll('#basic-6')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.selectAll('#basic-7')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-3-6')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-3-7')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+        },
+        "forward":  function() {
+            update_freq_table([['bepr', 6], ['ko', 4]]);
+
+            svg.selectAll('#basic-2').style('display', 'initial').transition().style('opacity', 1);
+            svg.selectAll('#basic-4').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-2-4').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-2-5').style('display', 'initial').transition().style('opacity', 1);
+        },
+    },{
+        "backward": function() {
+            update_freq_table([['bpr', 3], ['e', 3], ['ko', 4]]);
+
+            svg.selectAll('#basic-2')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.selectAll('#basic-4')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-2-4')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-2-5')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+        },
+        "forward":  function() {
+            update_freq_table([['bekopr', 10]]);
+
+            svg.selectAll('#basic-1').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-1-2').style('display', 'initial').transition().style('opacity', 1);
+            svg.select('.edge#basic-1-3').style('display', 'initial').transition().style('opacity', 1);
+        },
+    },{
+        "backward": function() {
+            update_freq_table([['bepr', 6], ['ko', 4]]);
+
+            svg.selectAll('#basic-1')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-1-2')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+            svg.select('.edge#basic-1-3')
+                .transition().style('opacity', 0)
+                .transition().delay(100).style('display', 'none');
+        },
+        "forward":  none,
+    },{
+        "backward": none,
+        "forward":  none,
+    },{
+        "backward": none,
         "forward":  none,
     },{
         "backward": none,
