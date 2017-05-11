@@ -65,9 +65,9 @@
         </div>
 
         <div class="section">
-            <p>This is a visual explaination and exploration of adaptive huffman coding and how it compares to traditional static huffman coding. Specifically, we will focus on how our encoding trees might differ when using adaptive vs. static huffman.</p>
+            <p>This is a visual explaination and exploration of adaptive Huffman coding and how it compares to traditional static Huffman coding. Specifically, we will focus on how our encoding trees might differ when using adaptive vs. static Huffman.</p>
 
-            <p>First, we will explore how traditional huffman coding builds its encoding tree for a specific sting, is this case "bookkeeper". We will then do the same for adaptive huffman coding using the FGK algorithm and compare these two trees. At the end, you can further explore how static vs. huffman coding trees compare through other strings.</p>
+            <p>First, we will explore how traditional Huffman coding builds its encoding tree for a specific string, is this case "bookkeeper". We will then do the same for adaptive Huffman coding using the FGK algorithm and compare these two trees. At the end, you can further explore how static vs. Huffman coding trees compare through other strings.</p>
 
             <p>Want to skip ahead? <a href='#fgk'>Click here</a> for the explaination of the adaptive algorithm and <a href='#'>click here</a> to explore other words.</p>
         </div>
@@ -75,7 +75,7 @@
         <div class="section">
             <h3>What is Huffman Coding?</h3>
 
-            <p>Before we get started, let's quickly discuss what exactly huffman coding is. When we transmit information, we generally need to convert some sort of data (text, pictures, etc.) into binary. To do this, we assign codes to help us distinguish between different pieces of data.</p>
+            <p>Before we get started, let's quickly discuss what exactly Huffman coding is. When we transmit information, we generally need to convert some sort of data (text, pictures, etc.) into binary. To do this, we assign codes to help us distinguish between different pieces of data.</p>
 
             <p>For example, if we had the string "abca", we might assign codes like: a = 00, b = 01, c = 10. This would make it so that our binary encoding of "abca" is "00 01 10 00".</p>
         </div>
@@ -83,7 +83,7 @@
         <div class="section">
             <p>But what if we wanted to encode "aabaacaa"? If we used our original encoding where we use two bits for each character, we would be treating "a" and "c" with equal importance, even though "a" appears much more.</p>
 
-            <p>Wouldn't it be more efficient if we used fewer bits for "a" and more bits for "c"? This is where huffman coding comes in.</p>
+            <p>Wouldn't it be more efficient if we used fewer bits for "a" and more bits for "c"? This is where Huffman coding comes in.</p>
         </div>
 
         <div class="section">
@@ -94,7 +94,8 @@
 
         <div class="section">
             <h3>Building a Huffman Tree</h3>
-            <p>Our data to encode is the string "bookkeeper". Before we can start encoding, we will build our huffman tree for this string, which will in turn show us what codes to use.</p>
+
+            <p>As an example, lets encode the string "bookkeeper". Before we can start encoding, we will build our Huffman tree for this string, which will in turn show us what binary encoding we will use for each character.</p>
 
             <p>To start, we need to count the frequency for each character in our string and store these frequencies in a table.</p>
         </div>
@@ -140,9 +141,29 @@
         </div>
 
         <div class="section">
-            <p>...until our table is only left with one value, a pseudo-character containing all of our original characters. This means we're done building our huffman tree!</p>
+            <p>...until our table is only left with one value, a pseudo-character containing all of our original characters. This means we're done building our Huffman tree!</p>
 
-            <p>But how do we use this tree to assign codes?</p>
+            <p>So how do we use this tree to assign codes?</p>
+        </div>
+
+        <div class="section">
+            <p">Given our Huffman tree, to determine the binary code that we will use for any particular character, we can simply walk from the root to our character's leaf node, taking note of when we traverse left and when we traverse right.</p>
+
+            <p>As we walk from root to leaf, we will denote a left traversal with "0" and a right traversal with a "1".</p>
+        </div>
+
+        <div class="section">
+            <p">For example, say we wanted to find the encoding for "p", which only occurs once in "bookeeper".</p>
+
+            <p>In our walk from root to the "p" leaf, we go left, right, right, and left again. This means we will use four bits to encode "p" as "0110".</p>
+        </div>
+
+        <div class="section">
+            <p">What about our encoding of a more frequently used character like "k"?</p>
+
+            <p>For our walk to "k", we traverse right then left. This means we will only use two bits to encode "k" as "10".</p>
+
+            <p>It seems like our tree works - hooray for efficiency!</p>
         </div>
 
         <div class="section">

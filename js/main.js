@@ -42,7 +42,6 @@ $(window).resize(function() {
 
 var screen_warning = new jBox('Notice', {
   content: 'This page is best viewed in a larger window. Try resizing your window!',
-  color: 'black',
   id: 'screen-warning'
 });
 

@@ -333,15 +333,95 @@ var fxns = [
                 .transition().style('opacity', 0)
                 .transition().delay(100).style('display', 'none');
         },
-        "forward":  none,
+        "forward":  function() {
+            $('#freq-table').addClass('hidden');
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            $('#freq-table').removeClass('hidden');
+        },
+        "forward":  function() {
+            svg.select('.node#basic-1').transition().style('fill', '#3852ad');
+            svg.select('.node#basic-2').transition().delay(200).style('fill', '#3852ad');
+            svg.select('.node#basic-5').transition().delay(400).style('fill', '#3852ad');
+            svg.select('.node#basic-9').transition().delay(600).style('fill', '#3852ad');
+            svg.select('.node#basic-10').transition().delay(800).style('fill', '#3852ad');
+
+            svg.append("text")
+                .attr("x", 775)
+                .attr("y", 393.75)
+                .text("p = 0110")
+                .style("font-family", "Roboto Mono")
+                .style("font-size", "28px")
+                .style("text-anchor", "middle")
+                .style("fill", "#39C0BA")
+                .style("opacity", 0)
+                .transition()
+                .delay(1250)
+                .style("opacity", 1);
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('text').filter(function() {
+                return d3.select(this).text() === "p = 0110";
+            })
+                .transition().style('opacity', 0)
+                .transition().delay(150).remove();
+        },
+        "forward":  function() {
+            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('text').filter(function() {
+                return d3.select(this).text() === "p = 0110";
+            })
+                .transition().style('opacity', 0)
+                .transition().delay(150).remove();
+
+            svg.select('.node#basic-1').transition().delay(200).style('fill', '#3852ad');
+            svg.select('.node#basic-3').transition().delay(400).style('fill', '#3852ad');
+            svg.select('.node#basic-6').transition().delay(600).style('fill', '#3852ad');
+
+            svg.append("text")
+                .attr("x", 775)
+                .attr("y", 393.75)
+                .text("k = 10")
+                .style("font-family", "Roboto Mono")
+                .style("font-size", "28px")
+                .style("text-anchor", "middle")
+                .style("fill", "#39C0BA")
+                .style("opacity", 0)
+                .transition()
+                .delay(1000)
+                .style("opacity", 1);
+        },
     },{
-        "backward": none,
+        "backward": function() {
+            svg.selectAll('.node').transition().style('fill', 'initial');
+            svg.selectAll('text').filter(function() {
+                return d3.select(this).text() === "k = 10";
+            })
+                .transition().style('opacity', 0)
+                .transition().delay(150).remove();
+
+            svg.select('.node#basic-1').transition().delay(150).style('fill', '#3852ad');
+            svg.select('.node#basic-2').transition().delay(150).style('fill', '#3852ad');
+            svg.select('.node#basic-5').transition().delay(150).style('fill', '#3852ad');
+            svg.select('.node#basic-9').transition().delay(150).style('fill', '#3852ad');
+            svg.select('.node#basic-10').transition().delay(150).style('fill', '#3852ad');
+
+            svg.append("text")
+                .attr("x", 775)
+                .attr("y", 393.75)
+                .text("p = 0110")
+                .style("font-family", "Roboto Mono")
+                .style("font-size", "28px")
+                .style("text-anchor", "middle")
+                .style("fill", "#39C0BA")
+                .style("opacity", 0)
+                .transition()
+                .delay(500)
+                .style("opacity", 1);
+        },
         "forward":  none,
     },{
         "backward": none,
