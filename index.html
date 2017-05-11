@@ -167,9 +167,56 @@
         </div>
 
         <div class="section">
-            <p">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem inventore nulla doloribus ut modi animi, nostrum deserunt obcaecati, repudiandae, voluptas, in porro dolorum dolor et illum itaque aliquam asperiores eum! Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis.</p>
+            <p>If we do this for all of our characters, we get our full binary encoding scheme. Let's compare this new Huffman scheme against a niave encoding scheme where we just arbitrarily assign binary codes.</p>
 
-            <p>So how does this tree compare to the one produced using adaptive Huffman coding? Keep scrolling to find out!</p>
+            <br />
+
+            <table style="width: 80%">
+                <tr>
+                    <th>char</th>
+                    <td>b</td>
+                    <td>e</td>
+                    <td>k</td>
+                    <td>o</td>
+                    <td>p</td>
+                    <td>r</td>
+                </tr>
+                <tr>
+                    <th>freq</th>
+                    <td>1</td>
+                    <td>3</td> 
+                    <td>2</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th>old code</th>
+                    <td>000</td>
+                    <td>001</td>
+                    <td>010</td>
+                    <td>011</td>
+                    <td>100</td>
+                    <td>101</td>
+                </tr>
+                <tr>
+                    <th>new code</th>
+                    <td>010</td>
+                    <td>11</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>0110</td>
+                    <td>0111</td>
+                </tr>
+            </table>
+
+            <p>Using the niave scheme, encoding "bookkeeper" would take 30 bits. Using our Huffman scheme, we only use 25 bits to encode, which is a roughly a 17% improvement!
+        </div>
+    
+        <div class="section">
+            <p>So how does this tree and this encoding compare to the one produced using adaptive Huffman coding? Keep scrolling to find out!</p>
+
+            <p>Want to skip around? <a href='#'>Click here</a> to head back to the beginning and <a href='#'>click here</a> to explore other words.</p>
         </div>
     </div>
 

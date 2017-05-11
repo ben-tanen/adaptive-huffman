@@ -30,6 +30,25 @@ a:hover {
     text-decoration: underline;
 }
 
+table {
+    width: 65%;
+    margin: auto;
+    border-collapse: collapse;
+    border: 1px solid white;
+}
+
+table td, table th {
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+}
+
+table th {
+    color: #39c0ba;
+}
+
 .svg-container {
     width:  1000px;
     height: 450px;
@@ -51,7 +70,7 @@ a:hover {
 .mask#basic {
     top: calc((100% - 450px) / 2);
     left: calc((100% - 1000px) / 2);
-    padding-bottom: 140px;
+    padding-bottom: 250px;
 }
 
 .mask#fgk {
@@ -87,25 +106,10 @@ a:hover {
 
 #freq-table table {
     width: 65%;
-    margin: auto;
-    border-collapse: collapse;
-    border: 1px solid white;
-}
-
-#freq-table table td, #freq-table table th {
-    border: 1px solid white;
-    text-align: center;
-    padding: 2px;
-    -webkit-transition: background-color 0.2s;
-    transition: background-color 0.2s;
 }
 
 #freq-table .highlight {
     background-color: #535765;
-}
-
-#freq-table table th {
-    color: #39c0ba;
 }
 
 .section {
@@ -178,7 +182,8 @@ a:hover {
     text-align: left;
     color: black;
     width: 100px;
-    font: 12px "Roboto Mono";
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 12px;
     z-index: 1;
 }
 
