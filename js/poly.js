@@ -1,9 +1,10 @@
-function new_circ_node(px, py, k, v, t, d) {
+function new_circ_node(px, py, k, v, t, id) {
     var r = 15;
 
     var c = svg.append("circle")
         .classed("node", true)
         .classed("circ", true)
+        .attr("id", id)
         .attr("cx", px)
         .attr("cy", py)
         .attr("r", r)
@@ -12,6 +13,7 @@ function new_circ_node(px, py, k, v, t, d) {
 
     var text = svg.append("text")
         .attr("class", "node-text")
+        .attr("id", id)
         .attr("x", px - 0.5)
         .attr("y", py + 3.5)
         .attr("px", px)
@@ -31,13 +33,14 @@ function new_circ_node(px, py, k, v, t, d) {
     return [c, text];
 }
 
-function new_rect_node(px, py, k, v, t) {
+function new_rect_node(px, py, k, v, t, id) {
     var width  = 25,
         height = 25;
 
     var r = svg.append("rect")
         .classed("node", true)
         .classed("rect", true)
+        .attr("id", id)
         .attr("x",  px - 12.5)
         .attr("y",  py - 12.5)
         .attr("px", px)
@@ -47,6 +50,7 @@ function new_rect_node(px, py, k, v, t) {
 
     var text = svg.append("text")
         .attr("class", "node-text")
+        .attr("id", id)
         .attr("x",  px)
         .attr("y",  py + 3)
         .attr("px", px)
@@ -66,7 +70,7 @@ function new_rect_node(px, py, k, v, t) {
     return [r, text];
 }
 
-function connect_p2c(p, c) {
+function connect_p2c(p, c, id) {
     var x1 = parseInt(p.attr("px")),
         y1 = parseInt(p.attr("py")) + (p.classed("circ") ? 15 : 12.5),
         x4 = parseInt(c.attr("px")),
@@ -81,6 +85,7 @@ function connect_p2c(p, c) {
     var path = line([[x1, y1], [x2, y2], [x3, y3], [x4, y4]]);
     var p = svg.append('path')
         .classed('edge', true)
+        .attr('id', id)
         .attr('d', path)
         .style("stroke", "black")
         .style("fill", "none");

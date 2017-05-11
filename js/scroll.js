@@ -318,20 +318,19 @@ var fxns = [
     },{
         "backward": none,
         "forward":  function() {
-            var [n1, t1] = new_circ_node(225, 150, "a", 9, 9);
-            var [n2, t2] = new_circ_node(300, 225, "b", 7, 7);
-            var [n3, t3] = new_circ_node(150, 225, "c", 4, 4);
-            var [n4, t4] = new_circ_node(225, 300, "d", 2, 2);
-            var [n5, t5] = new_circ_node( 75, 300, "e", 1, 1);
+            var [n1, t1] = new_circ_node(225, 150, "a", 9, 9, 'swp_ex1-1');
+            var [n2, t2] = new_circ_node(300, 225, "b", 7, 7, 'swp_ex1-2');
+            var [n3, t3] = new_circ_node(150, 225, "c", 4, 4, 'swp_ex1-3');
+            var [n4, t4] = new_circ_node(225, 300, "d", 2, 2, 'swp_ex1-4');
+            var [n5, t5] = new_circ_node( 75, 300, "e", 1, 1, 'swp_ex1-5');
 
-            var p1 = connect_p2c(n1, n2);
-            var p2 = connect_p2c(n1, n3);
-            var p3 = connect_p2c(n3, n4);
-            var p4 = connect_p2c(n3, n5);
+            var p1 = connect_p2c(n1, n2, 'swp_ex1-1-2');
+            var p2 = connect_p2c(n1, n3, 'swp_ex1-1-3');
+            var p3 = connect_p2c(n3, n4, 'swp_ex1-3-4');
+            var p4 = connect_p2c(n3, n5, 'swp_ex1-3-5');
 
             svg.selectAll('*')
                 .classed('sib-tree-1', true)
-                .attr('id', 'swp_ex-0')
                 .style('opacity', 0).transition().style('opacity', 1);
         },
     },{
@@ -341,38 +340,27 @@ var fxns = [
         "forward":  function() {
             svg.selectAll('.sib-tree-1').transition().style('opacity', 0).transition().style('display', 'none');
 
-            var [n1, t1] = new_circ_node(225, 150 - 37.5, "a", 12, 12);
-            var [n2, t2] = new_circ_node(175, 225 - 37.5, "b",  4,  7);
-            var [n3, t3] = new_circ_node(275, 225 - 37.5, "c",  8,  8);
-            var [n4, t4] = new_circ_node(225, 300 - 37.5, "d",  3,  6);
-            var [n5, t5] = new_circ_node(325, 300 - 37.5, "e",  6,  4);
-            var [n6, t6] = new_circ_node(275, 375 - 37.5, "f",  2,  2);
-            var [n7, t7] = new_circ_node(175, 375 - 37.5, "g",  1,  1);
+            var [n1, t1] = new_circ_node(225, 150 - 37.5, "a", 12, 12, 'swp_ex2-1');
+            var [n2, t2] = new_circ_node(175, 225 - 37.5, "b",  4,  7, 'swp_ex2-2');
+            var [n3, t3] = new_circ_node(275, 225 - 37.5, "c",  8,  8, 'swp_ex2-3');
+            var [n4, t4] = new_circ_node(225, 300 - 37.5, "d",  3,  6, 'swp_ex2-4');
+            var [n5, t5] = new_circ_node(325, 300 - 37.5, "e",  6,  4, 'swp_ex2-5');
+            var [n6, t6] = new_circ_node(275, 375 - 37.5, "f",  2,  2, 'swp_ex2-6');
+            var [n7, t7] = new_circ_node(175, 375 - 37.5, "g",  1,  1, 'swp_ex2-7');
 
-            var p1 = connect_p2c(n1, n2);
-            var p2 = connect_p2c(n1, n3);
-            var p3 = connect_p2c(n3, n4);
-            var p4 = connect_p2c(n3, n5);
-            var p5 = connect_p2c(n4, n6);
-            var p6 = connect_p2c(n4, n7);
+            var p1 = connect_p2c(n1, n2, 'swp_ex2-1-2');
+            var p2 = connect_p2c(n1, n3, 'swp_ex2-1-3');
+            var p3 = connect_p2c(n3, n4, 'swp_ex2-3-4');
+            var p4 = connect_p2c(n3, n5, 'swp_ex2-3-5');
+            var p5 = connect_p2c(n4, n6, 'swp_ex2-4-6');
+            var p6 = connect_p2c(n4, n7, 'swp_ex2-4-7');
 
             svg.selectAll('*:not(.sib-tree-1)')
                 .classed('sib-tree-2', true)
-                .attr('id', 'swp_ex-0')
                 .style('opacity', 0).transition().delay(250).style('opacity', 1);
 
-            n4.style('fill', '#af3131').attr('id', 'swp_ex-4');
-            n5.style('fill', '#af3131').attr('id', 'swp_ex-5');
-            n6.attr('id', 'swp_ex-6');
-            n7.attr('id', 'swp_ex-7');
-
-            t4.attr('id', 'swp_ex-4');
-            t5.attr('id', 'swp_ex-5');
-            t6.attr('id', 'swp_ex-6');
-            t7.attr('id', 'swp_ex-7');
-
-            p5.attr('id', 'swp_ex-4-6');
-            p6.attr('id', 'swp_ex-4-7');
+            n4.style('fill', '#af3131');
+            n5.style('fill', '#af3131');
         },
     },{
         "backward": function() {
@@ -381,19 +369,19 @@ var fxns = [
             svg.selectAll('.sib-tree-1').style('display','block').transition().delay(250).style('opacity', 1);
         },
         "forward":  function() {
-            swap_subtrees('swp_ex', [5],[4,6,7], 0);
+            swap_subtrees('swp_ex2', [5],[4,6,7], 0);
         },
     },{
         "backward": function() {
-            swap_subtrees('swp_ex', [5],[4,6,7], 0);
+            swap_subtrees('swp_ex2', [5],[4,6,7], 0);
         },
         "forward":  function() {
             svg.selectAll('.sib-tree-2').transition().style('opacity', 0).transition().style('display', 'none');
 
-            var [n, t] = new_rect_node(225, 225, "-", 0, "-");
+            var [n, t] = new_rect_node(225, 225, "-", 0, "-", "fgk-0");
 
-            n.attr('id', 'fgk-0').style('opacity', 0).transition().delay(250).style('opacity', 1);
-            t.attr('id', 'fgk-0').style('opacity', 0).transition().delay(250).style('opacity', 1);
+            n.style('opacity', 0).transition().delay(250).style('opacity', 1);
+            t.style('opacity', 0).transition().delay(250).style('opacity', 1);
 
             $('.tooltip').addClass('left');
         },
@@ -424,10 +412,10 @@ var fxns = [
         "forward":  function() {
             move_node('fgk', '0', -20, 37.5, 0);
 
-            var [n1, t1] = new_circ_node(225.0, 187.5, "b",  1,  1);
-            var [n2, t2] = new_circ_node(262.5, 262.5, "b",  1,  1);
+            var [n1, t1] = new_circ_node(225.0, 187.5, "b",  1,  1, 'fgk-1');
+            var [n2, t2] = new_circ_node(262.5, 262.5, "b",  1,  1, 'fgk-2');
 
-            var p1 = connect_p2c(n1, n2);
+            var p1 = connect_p2c(n1, n2, 'fgk-1-2');
             
             /*
             var x2 = x1 + (x4 - x1) / 6,
