@@ -216,7 +216,7 @@
         <div class="section">
             <p>So how does this tree and this encoding compare to the one produced using adaptive Huffman coding? Keep scrolling to find out!</p>
 
-            <p>Want to skip around? <span class="link" onclick="$(window).scrollTop(0)">Click here</span> to head back to the beginning and <a href='#'>click here</a> to explore other words.</p>
+            <p>Want to skip around? <span class="link" onclick="$(window).scrollTop(0)">Click here</span> to head back to the beginning and <span class='link' onclick="$(window).scrollTop($('.mask#end').position()['top'] + $('.mask#end').height() - 45)">click here</span> to explore other words.</p>
         </div>
     </div>
 
@@ -244,7 +244,7 @@
 
 
         <div class="section">
-            <p>As it was before, we build our FGK tree with leaves for characters and interior nodes for pseudo-characters. As with static Huffman, an interior node's frequency will be equal to the sum of the frequencies of its children.</p>
+            <p>As we did with traditional Huffman coding, we will build our FGK tree with leaves for characters and interior nodes for pseudo-characters. As with static Huffman, an interior node's frequency will be equal to the sum of the frequencies of its children.</p>
 
             <p>However, there are two major differences between traditional Huffman tree and the FGK tree.</p>
         </div>
