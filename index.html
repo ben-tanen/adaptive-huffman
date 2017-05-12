@@ -167,7 +167,7 @@
         </div>
 
         <div class="section">
-            <p>If we do this for all of our characters, we get our full binary encoding scheme. Let's compare this new Huffman scheme against a niave encoding scheme where we just arbitrarily assign binary codes.</p>
+            <p>If we do this for all of our characters, we get our full binary encoding scheme. Let's compare this new Huffman scheme against a naive encoding scheme where we just arbitrarily assign binary codes.</p>
 
             <br />
 
@@ -210,7 +210,7 @@
                 </tr>
             </table>
 
-            <p>Using the niave scheme, encoding "bookkeeper" would take 30 bits. Using our Huffman scheme, we only use 25 bits to encode, which is a roughly a 17% improvement!
+            <p>Using the naive scheme, encoding "bookkeeper" would take 30 bits. Using our Huffman scheme, we only use 25 bits to encode, which is a roughly a 17% improvement!
         </div>
     
         <div class="section">
@@ -236,7 +236,7 @@
         </div>
 
         <div class="section">
-            <p>With adaptive Huffman coding, our purpose and goal is identical to traditional Huffman coding - we want to build a tree that will give us an optimal binary encoding scheme. The major distinction is that we will not preprocess our input before we start encoding it. Instead, we will be building a tree on the fly as we read in our input.</p>
+            <p>With adaptive Huffman coding, our purpose and goal is identical to traditional Huffman coding - we want to build a tree that will give us an optimal binary encoding scheme. The major distinction is that we will not pre-process our input before we start encoding it. Instead, we will be building a tree on the fly as we read in our input.</p>
 
             <p>We will be using the FGK (Faller-Gallager-Knuth) Algorithm.</p>
         </div>
@@ -283,7 +283,7 @@
 
             <p>In our traditional Huffman tree, we build our tree from the bottom up (start with leaves and build up to our root) using our frequency table.</p>
 
-            <p>For adaptive Huffman coding, we are reading our input and building our tree at the same time (without first counting frequencies). As a result, we must build our FGK top down (start with a root and build down to our leaves). We use our null node as an sibling for new character nodes we will add. This way we will still maintain the sibling property.</p>
+            <p>For adaptive Huffman coding, we are reading our input and building our tree at the same time (without first counting frequencies). As a result, we must build our FGK top down (start with a root and build down to our leaves). We use our null node as a sibling for new character nodes we will add. This way we will still maintain the sibling property.</p>
         </div>
 
         <div class="section">
@@ -355,7 +355,7 @@
         </div>
 
         <div class="section">
-            <p>As we continue to read from our input, we'll continue inserting new nodes, updating our exisiting nodes, and making swaps when necessary.</p>
+            <p>As we continue to read from our input, we'll continue inserting new nodes, updating our existing nodes, and making swaps when necessary.</p>
 
             <p>Let's breeze through the rest of our input and see what our tree looks like at the end.</p>
         </div>
@@ -367,7 +367,7 @@
         <div class="section">
             <p>Just make sure to update our parent chain. No conflicts, so the ball keeps rolling...</p>
 
-            <p>(We just adjusted the tree positioning / spacing in preperation for more insertions - nothing related to our algorithm).
+            <p>(We just adjusted the tree positioning / spacing in preparation for more insertions - nothing related to our algorithm).
         </div>
 
         <div class="section">
@@ -383,7 +383,7 @@
         </div>
 
         <div class="section">
-            <p>A new character so time for a new leaf. As always, we've also got to update the parent chain.</p>
+            <p>A new character, so time for a new leaf. As always, we also have to update the parent chain.</p>
         </div>
 
         <div class="section">
@@ -395,7 +395,7 @@
         </div>
 
         <div class="section">
-            <p>We've always got to update that parent chain...</p>
+            <p>We always have to update that parent chain...</p>
         </div>
 
         <div class="section">

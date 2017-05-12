@@ -552,7 +552,7 @@ var fxns = [
             remap_ids('fgk', [2,3], [3,2]);
         },
         "forward":  function() {
-            update_fgk_input("booj","kkeeper");
+            update_fgk_input("boo","kkeeper");
             update_node_values('fgk',[1],[2]);
             console.log('centering: ', center_subtree('fgk', [1,2,3,4,0]));
         },
