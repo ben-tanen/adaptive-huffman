@@ -4,7 +4,7 @@ function init_scrolling() {
         .offset(20)
         .on('active', function(i){
             if (scroll_pos < i) {
-                if (i > 51) scroll_pos = 51;
+                if (i > 52) scroll_pos = 52;
 
                 for (var j = scroll_pos; j < i; j++) {
                     fxns[j]['forward']();
