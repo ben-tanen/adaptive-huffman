@@ -7,7 +7,7 @@ $(document).ready(function() {
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + '+ $('.mask#fgk').height() + 'px)'
     });
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 1000) + 'px');
+    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 2000) + 'px');
 
     if ($(window).width() < 1010 || $(window).height() < 550) screen_warning.open();
 
@@ -23,7 +23,7 @@ $(window).resize(function() {
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
     });
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 1000) + 'px');
+    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 2000) + 'px');
     
     if ($(window).width() < 1010 || $(window).height() < 550) {
         if ($('#screen-warning').css('display') != "block") screen_warning.open();
