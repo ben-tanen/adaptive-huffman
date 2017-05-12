@@ -183,14 +183,14 @@ var trees = {
                             "left-child": {
                                 "key": "-",
                                 "val": 0,
-                                "id": 12,
+                                "id": 0,
                                 "left-child": null,
                                 "right-child": null 
                             },
                             "right-child": {
                                 "key": "r",
                                 "val": 1,
-                                "id": 13,
+                                "id": 12,
                                 "left-child": null,
                                 "right-child": null
                             }

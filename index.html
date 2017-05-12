@@ -216,7 +216,7 @@
         <div class="section">
             <p>So how does this tree and this encoding compare to the one produced using adaptive Huffman coding? Keep scrolling to find out!</p>
 
-            <p>Want to skip around? <a href='#'>Click here</a> to head back to the beginning and <a href='#'>click here</a> to explore other words.</p>
+            <p>Want to skip around? <span class="link" onclick="$(window).scrollTop(0)">Click here</span> to head back to the beginning and <a href='#'>click here</a> to explore other words.</p>
         </div>
     </div>
 
@@ -252,7 +252,7 @@
 
             <p>First of all, each node (except for the root) has a sibling, so the tree meets the first condition. Next, we can see that the values of our nodes increase as we look from left to right and bottom to top in our tree.</p>
 
-            <p>Thus, we can see this tree satisfies the sibling property.
+            <p>Thus, we can see this tree satisfies the sibling property.</p>
         </div>
 
         <div class="section">
@@ -292,7 +292,7 @@
 
             <p>Because we will always insert new leaves as a sibling of the null node, we know that we will never violate the first condition of the sibling property.</p>
 
-            <p>We will need to make sure that our nodes are always in the right order (increasing in value from left to right and bottom to top). To do this, we will incrementally walk up the tree and update the parent chain between our new leaf and the root. If we ever encounter conflicting nodes, we can swap them.</p>
+            <p>However, we will need to make sure that our nodes are always in the right order (increasing in value from left to right and bottom to top). To do this, we will incrementally walk up the tree and update the parent chain between our new leaf and the root. If we ever encounter conflicting nodes, we can swap them.</p>
         </div>
 
         <div class="section">
@@ -312,133 +312,119 @@
         </div>
 
         <div class="section">
-            <p>(Notice we need to swap "o" and "b")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>When we update the frequency of "o", we actually get our first conflict. Our nodes are suppose to be in order from left to right and bottom to top, but the frequency of "o" is now greater than the frequency of "b". Before we can continue, we must rectify this by swapping the two nodes.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped "o" and "b")</p>
+            <p>Now that we've swapped the two nodes, our tree again satisfies the sibling property, so we can continue updating the rest of the tree. In this case, we simply had to update the root's value, so we are good to go.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Time for the next character...</p>
         </div>
 
         <div class="section">
-            <p>(Insert "k")</p>
+            <p>This is our first time reading "k" so we'll simply insert it into the tree as we did for "b" and "o".</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We'll again have to update our parent chain. With our current tree arrangement, it looks like we should just be able to increment the nodes in our chain and move onto the next letter of input.</p>
         </div>
 
         <div class="section">
-            <p>(Centering)</p>
+            <p>We didn't run into any conflicts with updating our parent chain so let's read in our next character, which is another "k".</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>As we did with "o", we will first update the value on our existing "k" node and update the parent chain as necessary. If we run into a conflict, we might have to make a swap or two.</p>
         </div>
 
         <div class="section">
-            <p>(Notice we need to swap "k" and "b")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>It looks like we have a conflict between "k" (with a frequency of 2) and "b" (with a frequency of 1) so we'll have to swap them. We can then keep updating our parent chain.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped "k" and "b", notice we need to swap interior node and "o")</p>
+            <p>After swapping "b" and "k", we can then update the first node in our parent chain. However, this leads to another conflict. In order to resolve this, we'll need to swap our left subtree with our right subtree.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Once we make the swap and update our last node in the chain (the root), we can read in the next character.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped interior node and "o")</p>
+            <p>As we continue to read from our input, we'll continue inserting new nodes, updating our exisiting nodes, and making swaps when necessary.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Let's breeze through the rest of our input and see what our tree looks like at the end.</p>
         </div>
 
         <div class="section">
-            <p>(Inserted "e")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Our first "e" so we insert a node for "e" - easy!</p>
         </div>
 
         <div class="section">
-            <p>(Centering and spread root)</p>
+            <p>Just make sure to update our parent chain. No conflicts, so the ball keeps rolling...</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>(We just adjusted the tree positioning / spacing in preperation for more insertions - nothing related to our algorithm).
         </div>
 
         <div class="section">
-            <p>(Notice we need to swap "e" and "b")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Another "e" so we update our existing node. We get a conflict so it's time to swap.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped "e" and "b", notice we need to swap "o" and interior node)</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>After swapping our nodes and updating our parent, we get another conflict. Time for another swap!</p>
         </div>
 
         <div class="section">
-            <p>(Swapped "o" and interior node)</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We update the rest of the parent chain and we're good to go.</p>
         </div>
 
         <div class="section">
-            <p>(Inserted "p")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>A new character so time for a new leaf. As always, we've also got to update the parent chain.</p>
         </div>
 
         <div class="section">
-            <p>(Updated parent chain, no conflicts)</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>It doesn't look like we have any conflicts so we can read our next character.</p>
         </div>
 
         <div class="section">
-            <p>(Notice we need to swap "e" and "k")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Our third "e" - after updating our existing "e" node, we get a conflict, which means it's swapping time.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped "e" and "k")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We've always got to update that parent chain...</p>
         </div>
 
         <div class="section">
-            <p>(Shifted up, inserted "r")</p>
+            <p>Time for our last input character, "r". This is our first "r" so we insert a new node.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Let's see if we run into any conflicts when updating our parent chain for the last time.</p>
         </div>
 
         <div class="section">
-            <p>(Notice we need to swap interior node and "b")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We do get a conflict, but we know what to do.</p>
         </div>
 
         <div class="section">
-            <p>(Swapped interior node and "b", notice we need to swap interior node and "o")</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Another conflict, another swap...</p>
         </div>
 
         <div class="section">
-            <p>(Swapped interior node and "o", DONE!)</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We now update our parent chain all the way to the root and...</p>
         </div>
 
         <div class="section">
-            <p>(Final thoughts?!?!)</p>
+            <p>... we're done!</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>We now have a completed Huffman tree without having to preprocess the input. As with our normal Huffman trees, we can use this tree to figure out which binary codes we should assign to which characters.</p>
         </div>
 
         <div class="section">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+            <p>Want to see how our traditional Huffman tree and our FGK tree compare? Scroll down (or click here) to check out the trees side-by-side. You can also see how our trees compare when we use different word!</p>
+        </div>
+
+        <div class="section">
+            <p>Thanks for following along! If you have any questions or comments, feel free to <a href='mailto:ben.tanen@gmail.com'>reach out</a>.</p>
+
+            <p>If you're interested in more on Huffman coding, you can check out these links for more:</p>
+
+            <ol>
+                <li><a href='https://en.wikipedia.org/wiki/Huffman_coding'>Huffman Coding on Wikipedia</a></li>
+                <li><a href='https://en.wikipedia.org/wiki/Adaptive_Huffman_coding'>Adaptive Huffman Coding on Wikipedia</a></li>
+                <li><a href='http://www.stringology.org/DataCompression/ahv/index_en.html'>Vitter's Algorithm, another adaptive Huffman algorithm</a>
+            </ol>
         </div>
     </div>
 

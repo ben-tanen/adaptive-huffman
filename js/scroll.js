@@ -898,9 +898,25 @@ var fxns = [
 
             d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
         },
-        "forward":  none,
+        "forward":  function() {
+            svg.selectAll('.node, .node-text, .edge').filter(function() {
+                return d3.select(this).attr('id').indexOf('fgk') >= 0;
+            }).remove();
+
+            var t = trees['bookkeeper-2'];
+            build_tree('fgk', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+        },
     },{
-        "backward": none,
+        "backward": function() {
+            clearTimeout(timeout);
+
+            svg.selectAll('.node, .node-text, .edge').filter(function() {
+                return d3.select(this).attr('id').indexOf('fgk') >= 0;
+            }).remove();
+
+            var t = trees['bookkeeper-2'];
+            build_tree('fgk', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+        },
         "forward":  none,
     },{
         "backward": none,
