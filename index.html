@@ -77,13 +77,13 @@
 
             <p>Before we get started, let's quickly discuss what exactly Huffman coding is. When we transmit information, we generally need to convert some sort of data (text, pictures, etc.) into binary. To do this, we assign codes to help us distinguish between different pieces of data.</p>
 
-            <p>For example, if we had the string "abca", we might assign codes like: a = 00, b = 01, c = 10. This would make it so that our binary encoding of "abca" is "00 01 10 00".</p>
+            <p>For example, if we had the string "abca", we might assign codes like: $a$ = 00, $b$ = 01, $c$ = 10. This would make it so that our binary encoding of "abca" is "00 01 10 00".</p>
         </div>
 
         <div class="section">
-            <p>But what if we wanted to encode "aabaacaa"? If we used our original encoding where we use two bits for each character, we would be treating "a" and "c" with equal importance, even though "a" appears much more.</p>
+            <p>But what if we wanted to encode "aabaacaa"? If we used our original encoding where we use two bits for each character, we would be treating $a$ and $c$ with equal importance, even though $a$ appears much more.</p>
 
-            <p>Wouldn't it be more efficient if we used fewer bits for "a" and more bits for "c"? This is where Huffman coding comes in.</p>
+            <p>Wouldn't it be more efficient if we used fewer bits for $a$ and more bits for $c$? This is where Huffman coding comes in.</p>
         </div>
 
         <div class="section">
@@ -103,25 +103,25 @@
         <div class="section">
             <p>We will use this table to add nodes and edges that will build up our tree.</p>
 
-            <p>First, we start by adding leaf nodes for the two characters that occur the least. In this case, we have a tie between "b", "p", and "r", so we'll just arbitrarily choose "p" and "r".
+            <p>First, we start by adding leaf nodes for the two characters that occur the least. In this case, we have a tie between $b$, $p$, and $r$, so we'll just arbitrarily choose $p$ and $r$.
         </div>
 
         <div class="section">
-            <p>When we add in our leaves for "p" and "r", we will attach them to a parent node for a new pseudo-character "pr". This pseudo-character represents occurrences of "p" or "r" so it's frequency is equal to the frequency of "p" plus the frequency of "r".</p>
+            <p>When we add in our leaves for $p$ and $r$, we will attach them to a parent node for a new pseudo-character "pr". This pseudo-character represents occurrences of $p$ or $r$ so it's frequency is equal to the frequency of $p$ plus the frequency of $r$.</p>
 
-            <p>We will also update our table to include our new pseudo-character. We can get this by simply merging the columns of "p" and "r".</p>
+            <p>We will also update our table to include our new pseudo-character. We can get this by simply merging the columns of $p$ and $r$.</p>
         </div>
 
         <div class="section">
             <p>With a now reduced table, we can repeat this process again for our updated values.</p>
 
-            <p>As we can see, "b" has the lowest frequency in our table so we'll use that. For the second lowest frequency, there is a tie between "k", "o", and "pr", so we can again pick arbitrarily. Let's use our pseudo-character "pr".</p>
+            <p>As we can see, $b$ has the lowest frequency in our table so we'll use that. For the second lowest frequency, there is a tie between $k$, $o$, and "pr", so we can again pick arbitrarily. Let's use our pseudo-character "pr".</p>
         </div>
 
         <div class="section">
-            <p>Because we don't have a leaf node for "b" yet, we will have to add that into our tree.</p>
+            <p>Since we don't have a leaf node for $b$ yet, we will have to add that into our tree.</p>
 
-            <p>Then, as we did before, we'll attach our "b" node and our "pr" node to a parent node for a new pseudo-character "bpr".</p>
+            <p>Then, as we did before, we'll attach our $b$ node and our "pr" node to a parent node for a new pseudo-character "bpr".</p>
 
             <p>Finally, we'll update our table to reflect our new pseudo-character.</p>
         </div>
@@ -153,15 +153,15 @@
         </div>
 
         <div class="section">
-            <p">For example, say we wanted to find the encoding for "p", which only occurs once in "bookkeeper".</p>
+            <p">For example, say we wanted to find the encoding for $p$, which only occurs once in "bookkeeper".</p>
 
-            <p>In our walk from root to the "p" leaf, we go left, right, right, and left again. This means we will use four bits to encode "p" as "0110".</p>
+            <p>In our walk from root to the $p$ leaf, we go left, right, right, and left again. This means we will use four bits to encode $p$ as "0110".</p>
         </div>
 
         <div class="section">
-            <p">What about our encoding of a more frequently used character like "k"?</p>
+            <p">What about our encoding of a more frequently used character like $k$?</p>
 
-            <p>For our walk to "k", we traverse right then left. This means we will only use two bits to encode "k" as "10".</p>
+            <p>For our walk to $k$, we traverse right then left. This means we will only use two bits to encode $k$ as "10".</p>
 
             <p>It seems like our tree works - hooray for efficiency!</p>
         </div>
@@ -174,12 +174,12 @@
             <table style="width: 80%">
                 <tr>
                     <th>char</th>
-                    <td>b</td>
-                    <td>e</td>
-                    <td>k</td>
-                    <td>o</td>
-                    <td>p</td>
-                    <td>r</td>
+                    <td>$b$</td>
+                    <td>$e$</td>
+                    <td>$k$</td>
+                    <td>$o$</td>
+                    <td>$p$</td>
+                    <td>$r$</td>
                 </tr>
                 <tr>
                     <th>freq</th>
@@ -281,49 +281,49 @@
         <div class="section">
             <p>The second major difference from traditional Huffman trees to FGK trees is our use of a <i>null node</i>.</p>
 
-            <p>In our traditional Huffman tree, we build our tree from the bottom up (start with leaves and build up to our root) using our frequency table.</p>
+            <p>In our traditional Huffman tree, we build our tree from the bottom up (starting with the leaves and building up to our root) using our frequency table.</p>
 
-            <p>For adaptive Huffman coding, we are reading our input and building our tree at the same time (without first counting frequencies). As a result, we must build our FGK top down (start with a root and build down to our leaves). We use our null node as a sibling for new character nodes we will add. This way we will still maintain the sibling property.</p>
+            <p>For adaptive Huffman coding, we are reading our input and building our tree at the same time (without first counting frequencies). As a result, we must build our FGK top down (starting with a root and build down to our leaves). We use our null node as a sibling for new character nodes we will add. This way we will still maintain the sibling property.</p>
         </div>
 
         <div class="section">
             <p>Let's see how all of this looks while building a FGK tree for "bookkeeper".</p>
 
-            <p>Because we are building our tree on the fly, we will update our tree based on the character we read in. If the character is new, we'll add it to our tree using the null node. If we've seen the character already, we'll simply update its frequency in our tree.</p>
+            <p>Since we are building our tree on the fly, we will update our tree based on the character we read in. If the character is new, we'll add it to our tree using the null node. If we've seen the character already, we'll simply update its frequency in our tree.</p>
         </div>
 
         <div class="section">
-            <p>Let's consider our first input character, "b".</p>
+            <p>Let's consider our first input character, $b$.</p>
 
-            <p>This is our first "b" so we will have to add it into our tree. We can make our "b" node siblings with the null node and then make them both children of a new interior node.</p>
+            <p>This is our first $b$ so we will have to add it into our tree. We can make our $b$ node siblings with the null node and then make them both children of a new interior node.</p>
         </div>
 
         <div class="section">
             <p>After inserting each new node, we must make sure that we don't violate the sibling property.</p>
 
-            <p>Because we will always insert new leaves as a sibling of the null node, we know that we will never violate the first condition of the sibling property.</p>
+            <p>Since we will always insert new leaves as a sibling of the null node, we know that we will never violate the first condition of the sibling property.</p>
 
             <p>However, we will need to make sure that our nodes are always in the right order (increasing in value from left to right and bottom to top). To do this, we will incrementally walk up the tree and update the parent chain between our new leaf and the root. If we ever encounter conflicting nodes, we can swap them.</p>
         </div>
 
         <div class="section">
-            <p>After inserting just "b", we can see our parent chain is already updated and we satisfy the sibling property. With that we can continue reading in our input.</p>
+            <p>After inserting just $b$, we can see our parent chain is already updated and we satisfy the sibling property. With that we can continue reading in our input.</p>
 
-            <p>Our next character is going to be "o", which we haven't yet seen. Therefore, we'll again need to add a new node to our tree.</p>
+            <p>Our next character is going to be $o$, which we haven't seen yet. Therefore, we'll again need to add a new node to our tree.</p>
         </div>
 
         <div class="section">
-            <p>Now that we have a leaf for "o" and an interior node with a value equal to the null node's frequency plus the "o" node's frequency ($0 + 1 = 1$), we just need to walk up and update the parent chain.</p>
+            <p>Now that we have a leaf for $o$ and an interior node with a value equal to the null node's frequency plus the $o$ node's frequency ($0 + 1 = 1$), we just need to walk up and update the parent chain.</p>
 
             <p>In this case, the parent chain just includes the root so there are no conflicts. We can just update the root to properly reflect its children's values ($1 + 1 = 2$).</p>
         </div>
 
         <div class="section">
-            <p>Onto the next character, which happens to be another "o" and our first duplicate. We'll first just update the "o" node's frequency in our tree and update the rest of the tree to make sure it still satisfies the sibling property.
+            <p>Onto the next character, which happens to be another $o$ and our first duplicate. We'll first just update the $o$ node's frequency in our tree and update the rest of the tree to make sure it still satisfies the sibling property.
         </div>
 
         <div class="section">
-            <p>When we update the frequency of "o", we actually get our first conflict. Our nodes are suppose to be in order from left to right and bottom to top, but the frequency of "o" is now greater than the frequency of "b". Before we can continue, we must rectify this by swapping the two nodes.</p>
+            <p>When we update the frequency of $o$, we get our first conflict. Our nodes are suppose to be in order from left to right and bottom to top, but the frequency of $o$ is now greater than the frequency of $b$. Before we can continue, we must rectify this by swapping the two nodes.</p>
         </div>
 
         <div class="section">
@@ -333,23 +333,23 @@
         </div>
 
         <div class="section">
-            <p>This is our first time reading "k" so we'll simply insert it into the tree as we did for "b" and "o".</p>
+            <p>This is our first time reading $k$ so we'll simply insert it into the tree as we did for $b$ and $o$.</p>
 
             <p>We'll again have to update our parent chain. With our current tree arrangement, it looks like we should just be able to increment the nodes in our chain and move onto the next letter of input.</p>
         </div>
 
         <div class="section">
-            <p>We didn't run into any conflicts with updating our parent chain so let's read in our next character, which is another "k".</p>
+            <p>We didn't run into any conflicts with updating our parent chain so let's read in our next character, which is another $k$.</p>
 
-            <p>As we did with "o", we will first update the value on our existing "k" node and update the parent chain as necessary. If we run into a conflict, we might have to make a swap or two.</p>
+            <p>As we did with $o$, we will first update the value on our existing $k$ node and update the parent chain as necessary. If we run into a conflict, we might have to make a swap or two.</p>
         </div>
 
         <div class="section">
-            <p>It looks like we have a conflict between "k" (with a frequency of 2) and "b" (with a frequency of 1) so we'll have to swap them. We can then keep updating our parent chain.</p>
+            <p>It looks like there is a conflict between $k$ (with a frequency of 2) and $b$ (with a frequency of 1) so we'll have to swap them. We can then keep updating our parent chain.</p>
         </div>
 
         <div class="section">
-            <p>After swapping "b" and "k", we can then update the first node in our parent chain. However, this leads to another conflict. In order to resolve this, we'll need to swap our left subtree with our right subtree.</p>
+            <p>After swapping $b$ and $k$, we can then update the first node in our parent chain. However, this leads to another conflict. In order to resolve this, we'll need to swap our left subtree with our right subtree.</p>
 
             <p>Once we make the swap and update our last node in the chain (the root), we can read in the next character.</p>
         </div>
@@ -361,7 +361,7 @@
         </div>
 
         <div class="section">
-            <p>Our first "e" so we insert a node for "e" - easy!</p>
+            <p>Our first $e$ so we insert a node for $e$ - easy!</p>
         </div>
 
         <div class="section">
@@ -371,7 +371,7 @@
         </div>
 
         <div class="section">
-            <p>Another "e" so we update our existing node. We get a conflict so it's time to swap.</p>
+            <p>Another $e$ so we update our existing node. We get a conflict so it's time to swap.</p>
         </div>
 
         <div class="section">
@@ -391,7 +391,7 @@
         </div>
 
         <div class="section">
-            <p>Our third "e" - after updating our existing "e" node, we get a conflict, which means it's swapping time.</p>
+            <p>Our third $e$ - after updating our existing $e$ node, we get a conflict, which means it's swapping time.</p>
         </div>
 
         <div class="section">
@@ -399,7 +399,7 @@
         </div>
 
         <div class="section">
-            <p>Time for our last input character, "r". This is our first "r" so we insert a new node.</p>
+            <p>Time for our last input character, $r$. This is our first $r$ so we insert a new node.</p>
 
             <p>Let's see if we run into any conflicts when updating our parent chain for the last time.</p>
         </div>
