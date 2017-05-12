@@ -69,7 +69,7 @@
 
             <p>First, we will explore how traditional Huffman coding builds its encoding tree for a specific string, in this case "bookkeeper". We will then do the same for adaptive Huffman coding using the FGK algorithm and compare these two trees. At the end, you can further explore how static vs. Huffman coding trees compare through other strings.</p>
 
-            <p>Want to skip ahead? <span class="link" onclick="$(window).scrollTop($('.mask#fgk').offset().top + 150)">Click here</span> for the explanation of the adaptive FGK algorithm and <span class="link">click here</span> to explore other words.</p>
+            <p>Want to skip ahead? <span class="link" onclick="$(window).scrollTop($('.mask#fgk').offset().top + 150)">Click here</span> for the explanation of the adaptive FGK algorithm and <span class='link' onclick="$(window).scrollTop($('.mask#end').position()['top'] + $('.mask#end').height() - 45)">click here</span> to explore other words.</p>
         </div>
 
         <div class="section">
@@ -227,10 +227,21 @@
 
         <div class="section">
             <h3>Adaptive Huffman Coding</h3>
-            <p>Reasoning for using adaptive Huffman...</p>
 
-            <p>Nunc dignissim mi quis arcu malesuada, eu placerat lectus gravida. Praesent vestibulum et nisi ac consequat. Cras tincidunt, arcu sit amet pretium sagittis, lorem purus placerat arcu, sit amet egestas eros eros quis ipsum. Fusce eget dignissim sapien. Fusce mauris quam, feugiat vitae placerat non, placerat ut diam. Nunc efficitur auctor turpis nec bibendum. Nulla diam ante, commodo at ligula a, tristique mattis sem.</p>
+            <p>While traditional Huffman coding is very useful, we can sometimes be limited by the fact that we need to know what data we are going to be encoding before we can start encoding. This might work in some scenarios, but there are many other applications where this is impractical or impossible.</p>
+
+            <p>For example, if we wanted to transmit a live video stream, we could not possible know exactly what is going to be transmitted before hand.</p>
+
+            <p>As an alternative, we can use adaptive Huffman coding.</p>
         </div>
+
+        <div class="section">
+            <p>With adaptive Huffman coding, our purpose and goal is identical to traditional Huffman coding - we want to build a tree that will give us an optimal binary encoding scheme. The major distinction is that we will not preprocess our input before we start encoding it. Instead, we will be building a tree on the fly as we read in our input.</p>
+
+            <p>We will be using the FGK (Faller-Gallager-Knuth) Algorithm.</p>
+        </div>
+
+
 
         <div class="section">
             <p>As it was before, we build our FGK tree with leaves for characters and interior nodes for pseudo-characters. As with static Huffman, an interior node's frequency will be equal to the sum of the frequencies of its children.</p>
@@ -239,7 +250,7 @@
         </div>
 
         <div class="section">
-            <p>First, our FGK tree must satisfy the <i>Sibling Property</i>. In order to do this, our tree must meet the following conditions:</p>
+            <p>First, our FGK tree must satisfy the <i>sibling property</i>. In order to do this, our tree must meet the following conditions:</p>
 
             <ol>
                 <li>All nodes in our tree (except for the root) must have a sibling.</li>
@@ -412,7 +423,9 @@
         </div>
 
         <div class="section">
-            <p>Want to see how our traditional Huffman tree and our FGK tree compare? Scroll down (or click here) to check out the trees side-by-side. You can also see how our trees compare when we use different word!</p>
+            <p>Want to see how our traditional Huffman tree and our FGK tree compare? Scroll down (or <span class='link' onclick="$(window).scrollTop($('.mask#end').position()['top'] + $('.mask#end').height() - 45)">click here</span>) to check out the trees side-by-side. You can also see how our trees compare when we use different word!</p>
+
+            <p>Want to head back to the beginning? <span class='link' onclick="$(window).scrollTop(0)">Click here</span>.
         </div>
 
         <div class="section">
@@ -425,6 +438,10 @@
                 <li><a href='https://en.wikipedia.org/wiki/Adaptive_Huffman_coding'>Adaptive Huffman Coding on Wikipedia</a></li>
                 <li><a href='http://www.stringology.org/DataCompression/ahv/index_en.html'>Vitter's Algorithm, another adaptive Huffman algorithm</a>
             </ol>
+        </div>
+
+        <div class="section" style="margin: 10px 0;">
+            <p style="opacity: 0;">.</p>
         </div>
     </div>
 

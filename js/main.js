@@ -31,7 +31,7 @@ $(window).resize(function() {
         screen_warning.close();
     }
 
-    if ($(window).scrollTop() + 50 > $('.mask#end').position()['top'] + $('.mask#end').height()) {
+    if ($(window).scrollTop() > $('.mask#end').position()['top'] + $('.mask#end').height() - 50) {
         if ($('.word-select').css('display') == 'none') $('.word-select').fadeIn();
     } else {
         if ($('.word-select').css('display') == 'block') $('.word-select').fadeOut();
@@ -39,7 +39,7 @@ $(window).resize(function() {
 });
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() + 50 > $('.mask#end').position()['top'] + $('.mask#end').height()) {
+    if ($(window).scrollTop() > $('.mask#end').position()['top'] + $('.mask#end').height() - 50) {
         if ($('.word-select').css('display') == 'none') {
             $('.word-select').fadeIn();
             $('.tooltip').removeClass('left').addClass('middle');

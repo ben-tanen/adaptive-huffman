@@ -4,6 +4,8 @@ function init_scrolling() {
         .offset(20)
         .on('active', function(i){
             if (scroll_pos < i) {
+                if (i > 51) scroll_pos = 51;
+
                 for (var j = scroll_pos; j < i; j++) {
                     fxns[j]['forward']();
                 }
@@ -139,6 +141,12 @@ function insert_fgk_node(id, [gx, gy], k, v, ix1, ix2) {
 }
 
 function uninsert_fgk_node(id, [gx, gy], ix1, ix2) {
+    var px = parseInt(d3.select('.node#' + id + '-' + ix1).attr("px")),
+        py = parseInt(d3.select('.node#' + id + '-' + ix1).attr("py"));
+
+    var dx = px - parseInt(d3.select('.node#' + id + '-0').attr("px")),
+        dy = py - parseInt(d3.select('.node#' + id + '-0').attr("py"));
+
     svg.selectAll('#' + id + '-' + ix1).transition().style('opacity', 0).transition().delay(250).remove();
     svg.selectAll('#' + id + '-' + ix2).transition().style('opacity', 0).transition().delay(250).remove();
     svg.select('#' + id + '-' + ix1 + '-0').transition().style('opacity', 0).transition().delay(250).remove();
@@ -152,7 +160,7 @@ function uninsert_fgk_node(id, [gx, gy], ix1, ix2) {
         return i[0] + '-' + i[1] + '-' + 0;
     });
 
-    move_node('fgk', '0', gx, -gy);
+    move_node('fgk', '0', dx, dy);
 }
 
 function update_node_values(id, ns, vs) {
@@ -423,6 +431,9 @@ var fxns = [
         "forward":  none,
     },{
         "backward": none,
+        "forward":  none,
+    },{
+        "backward": none,
         "forward":  function() {
             var [n1, t1] = new_circ_node(225, 150, "a", 9, 9, 'swp_ex1-1');
             var [n2, t2] = new_circ_node(300, 225, "b", 7, 7, 'swp_ex1-2');
@@ -516,40 +527,40 @@ var fxns = [
             update_fgk_input("","bookkeeper");
         },
         "forward":  function() {
-            insert_fgk_node('fgk', [30, 65], 'b', 1, 1, 2);
+            insert_fgk_node('fgk', [30, 75], 'b', 1, 1, 2);
         },
     },{
         "backward": function() {
-            uninsert_fgk_node('fgk', [30, 65], 1, 2)
+            uninsert_fgk_node('fgk', [30, 75], 1, 2)
         },
         "forward":  function() {
-            center_subtree('fgk', [1,2,0]);
+            console.log('centering: ', center_subtree('fgk', [1,2,0]));
         },
     },{
         "backward": function() {
-            move_subtree('fgk', [1,2,0], 0, 37.5);
+            move_subtree('fgk', [1,2,0], 0, 36.25);
         },
         "forward":  function() {
             update_fgk_input("bo","okkeeper");
-            insert_fgk_node('fgk', [30, 65], 'o', 1, 3, 4);
+            insert_fgk_node('fgk', [30, 75], 'o', 1, 3, 4);
             remap_ids('fgk', [2,3], [3,2]);
         },
     },{
         "backward": function() {
             update_fgk_input("b","ookkeeper");
-            uninsert_fgk_node('fgk', [30, 65], 2, 4);
+            uninsert_fgk_node('fgk', [30, 75], 2, 4);
             remap_ids('fgk', [2,3], [3,2]);
         },
         "forward":  function() {
-            update_fgk_input("boo","kkeeper");
+            update_fgk_input("booj","kkeeper");
             update_node_values('fgk',[1],[2]);
-            center_subtree('fgk', [1,2,3,4,0]);
+            console.log('centering: ', center_subtree('fgk', [1,2,3,4,0]));
         },
     },{
         "backward": function() {
             update_fgk_input("bo","okkeeper");
             update_node_values('fgk',[1],[1]);
-            move_subtree('fgk', [1,2,3,4,0], -10, 37.5);
+            move_subtree('fgk', [1,2,3,4,0], -15, 37.5);
         },
         "forward":  function() {
             update_node_values('fgk',[4],[2]);
@@ -586,13 +597,13 @@ var fxns = [
             update_fgk_input("boo", "kkeeper");
         },
         "forward":  function() {
-            insert_fgk_node('fgk', [30, 65], 'k', 1, 5, 6);
+            insert_fgk_node('fgk', [30, 75], 'k', 1, 5, 6);
             remap_ids('fgk', [5,4], [4,5]);
         },
     },{
         "backward": function() {
             remap_ids('fgk', [5,4], [4,5]);
-            uninsert_fgk_node('fgk', [30, 65], 5, 6);
+            uninsert_fgk_node('fgk', [30, 75], 5, 6);
         },
         "forward":  function() {
             console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,0]));
@@ -603,7 +614,7 @@ var fxns = [
     },{
         "backward": function() {
             update_node_values('fgk',[1,2],[3,1]);
-            move_subtree('fgk', [1,2,3,4,5,6,0], -15, 32.5);
+            move_subtree('fgk', [1,2,3,4,5,6,0], -15, 37.5);
 
             update_fgk_input("book", "keeper");
         },
@@ -665,13 +676,13 @@ var fxns = [
             update_fgk_input("bookk", "eeper");
         },
         "forward":  function() {
-            insert_fgk_node('fgk', [30, 65], 'e', 1, 7, 8);
+            insert_fgk_node('fgk', [30, 75], 'e', 1, 7, 8);
             remap_ids('fgk', [6,7], [7,6]);
         },
     },{
         "backward": function() {
             remap_ids('fgk', [6,7], [7,6]);
-            uninsert_fgk_node('fgk', [30, 65], 7, 8);
+            uninsert_fgk_node('fgk', [30, 75], 7, 8);
         },
         "forward":  function() {
             console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,0]));
@@ -680,20 +691,20 @@ var fxns = [
             update_fgk_input("bookkee", "per");
 
             timeout = setTimeout(function() {
-                move_subtree_connected('fgk', [2], -30, 0);
-                move_subtree_connected('fgk', [3,4,5,6,7,8,0], 30, 0);
+                move_subtree_connected('fgk', [2], -20, 0);
+                move_subtree_connected('fgk', [3,4,5,6,7,8,0], 20, 0);
             },300);
         },
     },{
         "backward": function() {
             update_node_values('fgk',[4,3,1],[1,3,5]);
-            move_subtree('fgk', [1,2,3,4,5,6,7,8,0], 30, 32.875);
+            move_subtree('fgk', [1,2,3,4,5,6,7,8,0], 30, 37.875);
 
             update_fgk_input("bookke", "eper");
 
             timeout = setTimeout(function() {
-                move_subtree_connected('fgk', [2], 30, 0);
-                move_subtree_connected('fgk', [3,4,5,6,7,8,0], -30, 0);
+                move_subtree_connected('fgk', [2], 20, 0);
+                move_subtree_connected('fgk', [3,4,5,6,7,8,0], -20, 0);
             },300);
         },
         "forward":  function() {
@@ -758,13 +769,13 @@ var fxns = [
             update_fgk_input("bookkee", "per");
         },
         "forward":  function() {
-            insert_fgk_node('fgk', [30, 65], 'p', 1, 9, 10);
+            insert_fgk_node('fgk', [30, 75], 'p', 1, 9, 10);
             remap_ids('fgk', [8,9], [9,8]);
         },
     },{
         "backward": function() {
             remap_ids('fgk', [8,9], [9,8]);
-            uninsert_fgk_node('fgk', [30, 65], 9, 10);
+            uninsert_fgk_node('fgk', [30, 75], 9, 10);
         },
         "forward":  function() {
             // console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0]));
@@ -817,14 +828,14 @@ var fxns = [
             move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, -31.875);
 
             timeout = setTimeout(function() {
-                insert_fgk_node('fgk', [30, 65], 'r', 1, 11, 12);
+                insert_fgk_node('fgk', [30, 75], 'r', 1, 11, 12);
                 remap_ids('fgk', [10,11], [11,10]);
             },500);
         },
     },{
         "backward": function() {
             remap_ids('fgk', [10,11], [11,10]);
-            uninsert_fgk_node('fgk', [30, 65], 11, 12);
+            uninsert_fgk_node('fgk', [30, 75], 11, 12);
 
             timeout = setTimeout(function() {
                 move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, 31.875);
@@ -884,7 +895,15 @@ var fxns = [
             update_node_values('fgk',[3,1],[5,9]); 
         },
         "forward":  function() {
-            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,11,12,0]));
+            svg.selectAll('.node, .node-text, .edge').filter(function() {
+                return d3.select(this).attr('id').indexOf('fgk') >= 0;
+            }).remove();
+
+            var t1 = trees['bookkeeper-1'];
+            var t2 = trees['bookkeeper-2'];
+
+            if (svg.select('#basic-1').size() == 0) build_tree('basic', t1['tree'], '', t1['height'], t1['root-pos'], t1['gap-size']);
+            if (svg.select('#fgk-1').size() == 0)   build_tree('fgk', t2['tree'], '', t2['height'], t2['root-pos'], t2['gap-size']);
 
             d3.select('#fgk-input')
                 .transition().style('opacity', 0)
@@ -892,37 +911,32 @@ var fxns = [
         },
     },{
         "backward": function() {
-            move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,11,12,0], 0, 31.875);
-
-            // consider replacing ^ centering code with set values to match playground rendering?
-
             d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
         },
-        "forward":  function() {
-            svg.selectAll('.node, .node-text, .edge').filter(function() {
-                return d3.select(this).attr('id').indexOf('fgk') >= 0;
-            }).remove();
-
-            var t = trees['bookkeeper-2'];
-            build_tree('fgk', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
-        },
+        "forward":  none,
+    },{
+        "backward": none,
+        "forward":  none,
+    },{
+        "backward": none,
+        "forward":  none,
     },{
         "backward": function() {
             clearTimeout(timeout);
 
             svg.selectAll('.node, .node-text, .edge').filter(function() {
-                return d3.select(this).attr('id').indexOf('fgk') >= 0;
+                return true;
             }).remove();
 
             var t = trees['bookkeeper-2'];
             build_tree('fgk', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
+
+            svg.selectAll('.node, .node-text, .edge').filter(function() {
+                return d3.select(this).attr('id').indexOf('fgk') >= 0;
+            }).style('opacity', 0).transition().style('opacity', 1);
+
+            $('.word-select select').val('bookkeeper');
         },
-        "forward":  none,
-    },{
-        "backward": none,
-        "forward":  none,
-    },{
-        "backward": none,
         "forward":  none,
     },{
         "backward": none,

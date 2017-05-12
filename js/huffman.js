@@ -132,7 +132,7 @@ var trees = {
     },
     "bookkeeper-2": {
         "root-pos": [225, 38.75],
-        "gap-size": [20, 75, 1.5],
+        "gap-size": [15, 75, 1.5],
         "height": 6,
         "tree": {
             "key": "bekopr",
