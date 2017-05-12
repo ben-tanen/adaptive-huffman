@@ -86,6 +86,110 @@ function show_node(i) {
     }).style('display', 'initial').transition().style('opacity', 1);
 }
 
+// takes in gap vals gx + gy, new leaf vals k + v + id, new interior node id
+function insert_fgk_node(id, [gx, gy], k, v, ix1, ix2) {
+    // get null nodes current pos
+    var [px, py] = [parseInt(d3.select('#fgk-0').attr("px")), parseInt(d3.select('#fgk-0').attr("py"))];
+
+    // move null node
+    move_node(id, '0', -gx, gy);
+
+    // add new interior node and leaf node
+    var [rn, rt] = new_circ_node(px, py, k, v, v, id + '-' + ix1);
+    var [nn, nt] = new_rect_node(px + gx, py + gy, k, v, k + ',' + v, id + '-' + ix2);
+
+    rn.style('opacity', 0).transition().style('opacity', 1);
+    rt.style('opacity', 0).transition().style('opacity', 1);
+    nn.style('opacity', 0).transition().delay(250).style('opacity', 1);
+    nt.style('opacity', 0).transition().delay(250).style('opacity', 1);
+
+    // update id on edge into interior node
+    svg.selectAll('.edge').filter(function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] === id && parseInt(i[2]) == 0;
+    }).attr('id', function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] + '-' + i[1] + '-' + ix1;
+    });
+
+    // add edge from interior to leaf node
+    var p1 = connect_p2c(rn, nn, id + '-' + ix1 + '-' + ix2);
+    p1.style('opacity', 0).transition().delay(250).style('opacity', 1);
+
+    // add edge from interior node to where null node will be (after move)
+    var x1 = px,
+        y1 = py + 15,
+        x4 = px - gx,
+        y4 = py + gy - 12.5;
+    var x2 = x1 + (x4 - x1) / 6,
+        y2 = y1 + (y4 - y1) / 6 * 2,
+        x3 = x1 + (x4 - x1) / 6 * 5,
+        y3 = y1 + (y4 - y1) / 6 * 4;
+
+    var line = d3.line().curve(d3.curveCardinal);
+    var p2 = svg.append('path')
+        .classed('edge', true)
+        .attr('id', id + '-' + ix1 + '-0')
+        .attr('d', line([[x1, y1], [x2, y2], [x3, y3], [x4, y4]]))
+        .style("stroke", "black")
+        .style("fill", "none")
+        .style('opacity', 0)
+        .transition().delay(250)
+        .style('opacity', 1);
+}
+
+function uninsert_fgk_node(id, [gx, gy], ix1, ix2) {
+    svg.selectAll('#' + id + '-' + ix1).transition().style('opacity', 0).transition().delay(250).remove();
+    svg.selectAll('#' + id + '-' + ix2).transition().style('opacity', 0).transition().delay(250).remove();
+    svg.select('#' + id + '-' + ix1 + '-0').transition().style('opacity', 0).transition().delay(250).remove();
+    svg.select('#' + id + '-' + ix1 + '-' + ix2).transition().style('opacity', 0).transition().delay(250).remove();
+
+    svg.selectAll('.edge').filter(function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] === id && parseInt(i[2]) == ix1;
+    }).attr('id', function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] + '-' + i[1] + '-' + 0;
+    });
+
+    move_node('fgk', '0', gx, -gy);
+}
+
+function update_node_values(id, ns, vs) {
+    for (var i = 0; i < ns.length; i++) {
+        var n = svg.select('.node#' + id + '-' + ns[i]),
+            t = svg.select('.node-text#' + id + '-' + ns[i]);
+
+        if (n.classed('circ')) t.text(vs[i]);
+        else t.text(t.text().split(',')[0] + ',' + vs[i]);
+    }
+}
+
+// takes in id-prefix, list of ids, list of ids to change them to            
+function remap_ids(id, o, n) {
+    // should probably check that two lists contain same values?
+
+    // remap node and text
+    svg.selectAll('.node, .node-text').filter(function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] === id && o.indexOf(parseInt(i[1])) >= 0;
+    }).attr('id', function() {
+        var i = d3.select(this).attr('id').split('-');
+        return (id + '-' + n[o.indexOf(parseInt(i[1]))]);
+    });
+    
+    // remap edges
+    svg.selectAll('.edge').filter(function() {
+        var i = d3.select(this).attr('id').split('-');
+        return i[0] === id && (o.indexOf(parseInt(i[1])) >= 0 || o.indexOf(parseInt(i[2])) >= 0);
+    }).attr('id', function() {
+        var i = d3.select(this).attr('id').split('-');
+        var n1 = (o.indexOf(parseInt(i[1])) >= 0 ? n[o.indexOf(parseInt(i[1]))] : i[1]);
+        var n2 = (o.indexOf(parseInt(i[2])) >= 0 ? n[o.indexOf(parseInt(i[2]))] : i[2]);
+        return (id + '-' + n1 + '-' + n2);
+    });
+}
+
 var scroll_pos = 0;
 var timeout = null;
 var none = function() { return; };
@@ -308,6 +412,8 @@ var fxns = [
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
 
+            console.log('building tree, bookkeeper-1');
+
             var t = trees['bookkeeper-1'];
             build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
         },
@@ -369,16 +475,16 @@ var fxns = [
             svg.selectAll('.sib-tree-1').style('display','block').transition().delay(250).style('opacity', 1);
         },
         "forward":  function() {
-            swap_subtrees('swp_ex2', [5],[4,6,7], 0);
+            swap_subtrees('swp_ex2', [5],[4,6,7]);
         },
     },{
         "backward": function() {
-            swap_subtrees('swp_ex2', [5],[4,6,7], 0);
+            swap_subtrees('swp_ex2', [4],[5,6,7]);
         },
         "forward":  function() {
             svg.selectAll('.sib-tree-2').transition().style('opacity', 0).transition().style('display', 'none');
 
-            var [n, t] = new_rect_node(225, 225, "-", 0, "-", "fgk-0");
+            var [n, t] = new_rect_node(225, 225, "-", 0, "-,0", "fgk-0");
 
             n.style('opacity', 0).transition().delay(250).style('opacity', 1);
             t.style('opacity', 0).transition().delay(250).style('opacity', 1);
@@ -410,41 +516,388 @@ var fxns = [
             update_fgk_input("","bookkeeper");
         },
         "forward":  function() {
-            move_node('fgk', '0', -20, 37.5, 0);
-
-            var [n1, t1] = new_circ_node(225.0, 187.5, "b",  1,  1, 'fgk-1');
-            var [n2, t2] = new_circ_node(262.5, 262.5, "b",  1,  1, 'fgk-2');
-
-            var p1 = connect_p2c(n1, n2, 'fgk-1-2');
-            
-            /*
-            var x2 = x1 + (x4 - x1) / 6,
-                y2 = y1 + (y4 - y1) / 6 * 2,
-                x3 = x1 + (x4 - x1) / 6 * 5,
-                y3 = y1 + (y4 - y1) / 6 * 4;
-
-            var line = d3.line().curve(d3.curveCardinal);
-            var p2 = svg.append('path')
-                .classed('edge', true)
-                .attr('d', line([[x1, y1], [x2, y2], [x3, y3], [x4, y4]]))
-                .style("stroke", "black")
-                .style("fill", "none"); 
-            */ 
+            insert_fgk_node('fgk', [30, 65], 'b', 1, 1, 2);
         },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            uninsert_fgk_node('fgk', [30, 65], 1, 2)
+        },
+        "forward":  function() {
+            center_subtree('fgk', [1,2,0]);
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            move_subtree('fgk', [1,2,0], 0, 37.5);
+        },
+        "forward":  function() {
+            update_fgk_input("bo","okkeeper");
+            insert_fgk_node('fgk', [30, 65], 'o', 1, 3, 4);
+            remap_ids('fgk', [2,3], [3,2]);
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            update_fgk_input("b","ookkeeper");
+            uninsert_fgk_node('fgk', [30, 65], 2, 4);
+            remap_ids('fgk', [2,3], [3,2]);
+        },
+        "forward":  function() {
+            update_fgk_input("boo","kkeeper");
+            update_node_values('fgk',[1],[2]);
+            center_subtree('fgk', [1,2,3,4,0]);
+        },
     },{
-        "backward": none,
-        "forward":  none,
+        "backward": function() {
+            update_fgk_input("bo","okkeeper");
+            update_node_values('fgk',[1],[1]);
+            move_subtree('fgk', [1,2,3,4,0], -10, 37.5);
+        },
+        "forward":  function() {
+            update_node_values('fgk',[4],[2]);
+
+            svg.select('.node#fgk-3').style('fill', '#af3131');
+            svg.select('.node#fgk-4').style('fill', '#af3131');
+        },
     },{
-        "backward": none,
+        "backward": function() {
+            update_node_values('fgk',[4],[1]);
+
+            svg.select('.node#fgk-3').style('fill', '#2e3037');
+            svg.select('.node#fgk-4').style('fill', '#2e3037');
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-3').style('fill', '#2e3037');
+            svg.select('.node#fgk-4').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [3], [4]);
+
+            update_node_values('fgk',[1],[3]);
+
+            update_fgk_input("book", "keeper");
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-3').style('fill', '#af3131');
+            svg.select('.node#fgk-4').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [3], [4]);
+
+            update_node_values('fgk',[1],[2]);
+
+            update_fgk_input("boo", "kkeeper");
+        },
+        "forward":  function() {
+            insert_fgk_node('fgk', [30, 65], 'k', 1, 5, 6);
+            remap_ids('fgk', [5,4], [4,5]);
+        },
+    },{
+        "backward": function() {
+            remap_ids('fgk', [5,4], [4,5]);
+            uninsert_fgk_node('fgk', [30, 65], 5, 6);
+        },
+        "forward":  function() {
+            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,0]));
+            update_node_values('fgk',[1,2],[4,2]);
+
+            update_fgk_input("bookk", "eeper");
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[1,2],[3,1]);
+            move_subtree('fgk', [1,2,3,4,5,6,0], -15, 32.5);
+
+            update_fgk_input("book", "keeper");
+        },
+        "forward":  function() {
+            update_node_values('fgk',[6],[2]);
+
+            svg.select('.node#fgk-5').style('fill', '#af3131');
+            svg.select('.node#fgk-6').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[6],[1]);
+
+            svg.select('.node#fgk-5').style('fill', '#2e3037');
+            svg.select('.node#fgk-6').style('fill', '#2e3037');
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-5').style('fill', '#2e3037');
+            svg.select('.node#fgk-6').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [5], [6]);
+
+            update_node_values('fgk',[2],[3]);
+
+            svg.select('.node#fgk-2').style('fill', '#af3131');
+            svg.select('.node#fgk-3').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-5').style('fill', '#af3131');
+            svg.select('.node#fgk-6').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [5], [6]);
+
+            update_node_values('fgk',[2],[2]);
+
+            svg.select('.node#fgk-2').style('fill', '#2e3037');
+            svg.select('.node#fgk-3').style('fill', '#2e3037');           
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-2').style('fill', '#2e3037');
+            svg.select('.node#fgk-3').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [2,4,5,6,0], [3]);
+
+            update_node_values('fgk',[1],[5]);
+
+            update_fgk_input("bookke", "eper");
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-2').style('fill', '#af3131');
+            svg.select('.node#fgk-3').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [3,4,5,6,0], [2]);
+
+            update_node_values('fgk',[1],[4]);
+
+            update_fgk_input("bookk", "eeper");
+        },
+        "forward":  function() {
+            insert_fgk_node('fgk', [30, 65], 'e', 1, 7, 8);
+            remap_ids('fgk', [6,7], [7,6]);
+        },
+    },{
+        "backward": function() {
+            remap_ids('fgk', [6,7], [7,6]);
+            uninsert_fgk_node('fgk', [30, 65], 7, 8);
+        },
+        "forward":  function() {
+            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,0]));
+            update_node_values('fgk',[4,3,1],[2,4,6]);
+
+            update_fgk_input("bookkee", "per");
+
+            timeout = setTimeout(function() {
+                move_subtree_connected('fgk', [2], -30, 0);
+                move_subtree_connected('fgk', [3,4,5,6,7,8,0], 30, 0);
+            },300);
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[4,3,1],[1,3,5]);
+            move_subtree('fgk', [1,2,3,4,5,6,7,8,0], 30, 32.875);
+
+            update_fgk_input("bookke", "eper");
+
+            timeout = setTimeout(function() {
+                move_subtree_connected('fgk', [2], 30, 0);
+                move_subtree_connected('fgk', [3,4,5,6,7,8,0], -30, 0);
+            },300);
+        },
+        "forward":  function() {
+            update_node_values('fgk',[8],[2]);
+
+            svg.select('.node#fgk-7').style('fill', '#af3131');
+            svg.select('.node#fgk-8').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[8],[1]);
+
+            svg.select('.node#fgk-7').style('fill', '#2e3037');
+            svg.select('.node#fgk-8').style('fill', '#2e3037');
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-7').style('fill', '#2e3037');
+            svg.select('.node#fgk-8').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [7], [8]);
+
+            update_node_values('fgk',[4],[3]);
+
+            svg.select('.node#fgk-2').style('fill', '#af3131');
+            svg.select('.node#fgk-4').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-7').style('fill', '#af3131');
+            svg.select('.node#fgk-8').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [7], [8]);
+
+            update_node_values('fgk',[4],[2]);
+
+            svg.select('.node#fgk-2').style('fill', '#2e3037');
+            svg.select('.node#fgk-4').style('fill', '#2e3037');           
+        },
+        "forward":  function() {
+            swap_subtrees('fgk', [2], [4,6,7,8,0]);
+
+            remap_ids('fgk', [6,7,4,5], [4,5,6,7]);
+
+            update_node_values('fgk',[1],[7]);
+
+            svg.select('.node#fgk-2').style('fill', '#2e3037');
+            svg.select('.node#fgk-6').style('fill', '#2e3037');
+
+            update_fgk_input("bookkeep", "er");
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-2').style('fill', '#af3131');
+            svg.select('.node#fgk-6').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [2,4,5,8,0], [6]);
+
+            remap_ids('fgk', [4,5,6,7], [6,7,4,5]);
+
+            update_node_values('fgk',[1],[6]);
+
+            update_fgk_input("bookkee", "per");
+        },
+        "forward":  function() {
+            insert_fgk_node('fgk', [30, 65], 'p', 1, 9, 10);
+            remap_ids('fgk', [8,9], [9,8]);
+        },
+    },{
+        "backward": function() {
+            remap_ids('fgk', [8,9], [9,8]);
+            uninsert_fgk_node('fgk', [30, 65], 9, 10);
+        },
+        "forward":  function() {
+            // console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0]));
+            update_node_values('fgk',[4,2,1],[2,4,8]);
+
+            update_fgk_input("bookkeepe", "r");
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[4,2,1],[1,3,7]);
+            // move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], -30, -0.625);
+
+            update_fgk_input("bookkeep", "er");
+        },
+        "forward":  function() {
+            update_node_values('fgk',[5],[3]);
+
+            svg.select('.node#fgk-5').style('fill', '#af3131');
+            svg.select('.node#fgk-7').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[5],[2]);
+
+            svg.select('.node#fgk-5').style('fill', '#2e3037');
+            svg.select('.node#fgk-7').style('fill', '#2e3037');
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-5').style('fill', '#2e3037');
+            svg.select('.node#fgk-7').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [5], [7]);
+
+            update_node_values('fgk',[3,1],[5,9]);
+
+            update_fgk_input("bookkeeper", "");
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-5').style('fill', '#af3131');
+            svg.select('.node#fgk-7').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [5], [7]);
+
+            update_node_values('fgk',[3,1],[4,8]);
+
+            update_fgk_input("bookkeepe", "r");           
+        },
+        "forward":  function() {
+            move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, -31.875);
+
+            timeout = setTimeout(function() {
+                insert_fgk_node('fgk', [30, 65], 'r', 1, 11, 12);
+                remap_ids('fgk', [10,11], [11,10]);
+            },500);
+        },
+    },{
+        "backward": function() {
+            remap_ids('fgk', [10,11], [11,10]);
+            uninsert_fgk_node('fgk', [30, 65], 11, 12);
+
+            timeout = setTimeout(function() {
+                move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, 31.875);
+            },1000);
+        },
+        "forward":  function() {
+            update_node_values('fgk',[8],[2]);
+
+            svg.select('.node#fgk-8').style('fill', '#af3131');
+            svg.select('.node#fgk-9').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            update_node_values('fgk',[8],[1]);
+
+            svg.select('.node#fgk-8').style('fill', '#2e3037');
+            svg.select('.node#fgk-9').style('fill', '#2e3037');
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-8').style('fill', '#2e3037');
+            svg.select('.node#fgk-9').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [8,10,11,12,0], [9]);
+
+            update_node_values('fgk',[4],[3]);
+
+            svg.select('.node#fgk-4').style('fill', '#af3131');
+            svg.select('.node#fgk-6').style('fill', '#af3131');
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-8').style('fill', '#af3131');
+            svg.select('.node#fgk-9').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [9,10,11,12,0], [8]);
+
+            update_node_values('fgk',[4],[2]); 
+
+            svg.select('.node#fgk-4').style('fill', '#2e3037');
+            svg.select('.node#fgk-6').style('fill', '#2e3037');          
+        },
+        "forward":  function() {
+            svg.select('.node#fgk-4').style('fill', '#2e3037');
+            svg.select('.node#fgk-6').style('fill', '#2e3037');
+
+            swap_subtrees('fgk', [4,8,9,10,11,12,0], [6]);
+
+            update_node_values('fgk',[3,1],[6,10]);
+        },
+    },{
+        "backward": function() {
+            svg.select('.node#fgk-4').style('fill', '#af3131');
+            svg.select('.node#fgk-6').style('fill', '#af3131');
+
+            swap_subtrees('fgk', [6,8,9,10,11,12,0], [4]);
+
+            update_node_values('fgk',[3,1],[5,9]); 
+        },
+        "forward":  function() {
+            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,11,12,0]));
+
+            d3.select('#fgk-input')
+                .transition().style('opacity', 0)
+                .transition().delay(200).style('display','none');
+        },
+    },{
+        "backward": function() {
+            move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,11,12,0], 0, 31.875);
+
+            // consider replacing ^ centering code with set values to match playground rendering?
+
+            d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
+        },
         "forward":  none,
     },{
         "backward": none,

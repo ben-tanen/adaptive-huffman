@@ -456,13 +456,13 @@ function build_tree(id, t, p, h, r, g) {
         n2 = build_tree(id, t['right-child'], p + '1', h, r, g);
 
     if (t['left-child'] && t['right-child']) {
-        var [n, txt] = new_circ_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['val'], 'id', id + '-' + t['id']);
+        var [n, txt] = new_circ_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['val'], id + '-' + t['id']);
     } else {
-        var [n, txt] = new_rect_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['key'], 'id', id + '-' + t['id']);
+        var [n, txt] = new_rect_node(r[0] + horz_offset(h, p, g[0], g[2]), r[1] + vert_offset(p, g[1]), t['key'], t['val'], t['key'], id + '-' + t['id']);
     }
 
     if (n1) connect_p2c(n, n1, id + '-' + t['id'] + '-' + t['left-child']['id']);
-    if (n2) p2 = connect_p2c(n, n2, id + '-' + t['id'] + '-' + t['right-child']['id']);
+    if (n2) connect_p2c(n, n2, id + '-' + t['id'] + '-' + t['right-child']['id']);
 
     return n;
 } 

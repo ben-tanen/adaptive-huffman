@@ -296,18 +296,144 @@
         </div>
 
         <div class="section">
+            <p>After inserting just "b", we can see our parent chain is already updated and we satisfy the sibling property. With that we can continue reading in our input.</p>
+
+            <p>Our next character is going to be "o", which we haven't yet seen. Therefore, we'll again need to add a new node to our tree.</p>
+        </div>
+
+        <div class="section">
+            <p>Now that we have a leaf for "o" and an interior node with a value equal to the null node's frequency plus the "o" node's frequency ($0 + 1 = 1$), we just need to walk up and update the parent chain.</p>
+
+            <p>In this case, the parent chain just includes the root so there are no conflicts. We can just update the root to properly reflect its children's values ($1 + 1 = 2$).</p>
+        </div>
+
+        <div class="section">
+            <p>Onto the next character, which happens to be another "o" and our first duplicate. We'll first just update the "o" node's frequency in our tree and update the rest of the tree to make sure it still satisfies the sibling property.
+        </div>
+
+        <div class="section">
+            <p>(Notice we need to swap "o" and "b")</p>
+
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
         </div>
 
         <div class="section">
+            <p>(Swapped "o" and "b")</p>
+
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
         </div>
 
         <div class="section">
+            <p>(Insert "k")</p>
+
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
         </div>
 
         <div class="section">
+            <p>(Centering)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Notice we need to swap "k" and "b")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped "k" and "b", notice we need to swap interior node and "o")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped interior node and "o")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Inserted "e")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Centering and spread root)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Notice we need to swap "e" and "b")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped "e" and "b", notice we need to swap "o" and interior node)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped "o" and interior node)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Inserted "p")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Updated parent chain, no conflicts)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Notice we need to swap "e" and "k")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped "e" and "k")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Shifted up, inserted "r")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Notice we need to swap interior node and "b")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped interior node and "b", notice we need to swap interior node and "o")</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Swapped interior node and "o", DONE!)</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
+        </div>
+
+        <div class="section">
+            <p>(Final thoughts?!?!)</p>
+
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam illum repellendus, possimus aliquam deserunt molestias dignissimos hic, error necessitatibus reiciendis, earum aliquid placeat repudiandae. Illum quas placeat ab modi rerum.</p>
         </div>
 

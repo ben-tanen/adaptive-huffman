@@ -219,10 +219,6 @@ table th {
     z-index: 1;
 }
 
-.tooltip.left {
-    left: calc(50% - 492px);
-}
-
 .tooltip.middle {
     left: calc(50%);
 }
@@ -242,7 +238,7 @@ table th {
 .node-text {
     cursor: default;
     font-family: "Roboto Mono", sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     fill: #39C0BA;
     text-anchor: middle;
 }
