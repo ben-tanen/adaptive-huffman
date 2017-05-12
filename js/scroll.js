@@ -408,8 +408,6 @@ var fxns = [
     },{
         "backward": none,
         "forward":  function() {
-            console.log('onto adaptive');
-
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
@@ -419,8 +417,6 @@ var fxns = [
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
-
-            console.log('building tree, bookkeeper-1');
 
             var t = trees['bookkeeper-1'];
             build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
@@ -778,7 +774,6 @@ var fxns = [
             uninsert_fgk_node('fgk', [30, 75], 9, 10);
         },
         "forward":  function() {
-            // console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0]));
             update_node_values('fgk',[4,2,1],[2,4,8]);
 
             update_fgk_input("bookkeepe", "r");
@@ -786,7 +781,6 @@ var fxns = [
     },{
         "backward": function() {
             update_node_values('fgk',[4,2,1],[1,3,7]);
-            // move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], -30, -0.625);
 
             update_fgk_input("bookkeep", "er");
         },
