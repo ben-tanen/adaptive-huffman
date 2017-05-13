@@ -18,7 +18,7 @@ Roboto Mono
 body {
     background-color: #2e3037;
     color: white;
-    height: calc(15649 + 100vh);
+    height: calc(15650px + 100vh);
 }
 
 a {

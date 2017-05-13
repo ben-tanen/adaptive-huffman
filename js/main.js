@@ -9,7 +9,7 @@ $(document).ready(function() {
     });
     */
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
+    // $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
 
     if ($(window).width() < 1010 || $(window).height() < 550) screen_warning.open();
 
@@ -27,7 +27,7 @@ $(window).resize(function() {
     });
     */
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
+    // $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
     
     if ($(window).width() < 1010 || $(window).height() < 550) {
         if ($('#screen-warning').css('display') != "block") screen_warning.open();
