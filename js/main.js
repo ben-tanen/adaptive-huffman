@@ -7,7 +7,7 @@ $(document).ready(function() {
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + '+ $('.mask#fgk').height() + 'px)'
     });
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 2000) + 'px');
+    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
 
     if ($(window).width() < 1010 || $(window).height() < 550) screen_warning.open();
 
@@ -23,7 +23,7 @@ $(window).resize(function() {
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
     });
 
-    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + 2000) + 'px');
+    $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
     
     if ($(window).width() < 1010 || $(window).height() < 550) {
         if ($('#screen-warning').css('display') != "block") screen_warning.open();
@@ -32,7 +32,7 @@ $(window).resize(function() {
     }
 
     if ($(window).scrollTop() > $('.mask#end').position()['top'] + $('.mask#end').height() - 50) {
-        if ($('.word-select').css('display') == 'none') $('.word-select').fadeIn();
+        if ($('.word-select').css('display') == 'none') d3.select('.word-select').style('opacity', 0).style('display', 'block').transition().style('opacity', 1);
     } else {
         if ($('.word-select').css('display') == 'block') $('.word-select').fadeOut();
     }
@@ -41,12 +41,12 @@ $(window).resize(function() {
 $(window).scroll(function() {
     if ($(window).scrollTop() > $('.mask#end').position()['top'] + $('.mask#end').height() - 50) {
         if ($('.word-select').css('display') == 'none') {
-            $('.word-select').fadeIn();
+            d3.select('.word-select').style('opacity', 0).style('display', 'block').transition().style('opacity', 1);
             $('.tooltip').removeClass('left').addClass('middle');
         }
     } else {
         if ($('.word-select').css('display') == 'block') {
-            $('.word-select').fadeOut();
+            d3.select('.word-select').transition().style('opacity', 0).transition().delay(250).style('display', 'none');
             $('.tooltip').removeClass('middle').addClass('left');
         }
     }

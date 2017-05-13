@@ -215,7 +215,7 @@ var trees = {
         }
     },
     "mississippi-1": {
-        "root-pos": [775, 113.75],
+        "root-pos": [750, 113.75],
         "gap-size": [25, 75, 2],
         "height": 4,
         "tree": {
@@ -243,6 +243,66 @@ var trees = {
                         "id": 6,
                         "left-child": null,
                         "right-child": null
+                    },
+                    "right-child": {
+                        "key": "p",
+                        "val": 2,
+                        "id": 7,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                },
+                "right-child": {
+                    "key": "i",
+                    "val": 4,
+                    "id": 5,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "mississippi-2": {
+        "root-pos": [196.88, 76.25],
+        "gap-size": [25, 75, 1.5],
+        "height": 5,
+        "tree": {
+            "key": "mips",
+            "val": 11,
+            "id": 1,
+            "left-child": {
+                "key": "s",
+                "val": 4,
+                "id": 2,
+                "left-child": null,
+                "right-child": null
+            },
+            "right-child": {
+                "key": "mip",
+                "val": 7,
+                "id": 3,
+                "left-child": {
+                    "key": "mp",
+                    "val": 3,
+                    "id": 4,
+                    "left-child": {
+                        "key": "m",
+                        "val": 1,
+                        "id": 6,
+                        "left-child": {
+                            "key": "-",
+                            "val": 0,
+                            "id": 0,
+                            "left-child": null,
+                            "right-child": null
+                        },
+                        "right-child": {
+                            "key": "m",
+                            "val": 1,
+                            "id": 8,
+                            "left-child": null,
+                            "right-child": null
+                        }
                     },
                     "right-child": {
                         "key": "p",
@@ -322,24 +382,96 @@ var trees = {
             }
         }
     },
+    "engineering-2": {
+        "root-pos": [225, 76.25],
+        "gap-size": [25, 75, 1.5],
+        "height": 5,
+        "tree": {
+            "key": "eginr",
+            "val": 11,
+            "id": 1,
+            "left-child": {
+                "key": "gir",
+                "val": 5,
+                "id": 2,
+                "left-child": {
+                    "key": "i",
+                    "val": 2,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "gr",
+                    "val": 3,
+                    "id": 5,
+                    "left-child": {
+                        "key": "i",
+                        "val": 1,
+                        "id": 8,
+                        "left-child": {
+                            "key": "-",
+                            "val": 0,
+                            "id": 0,
+                            "left-child": null,
+                            "right-child": null
+                        },
+                        "right-child": {
+                            "key": "r",
+                            "val": 1,
+                            "id": 10,
+                            "left-child": null,
+                            "right-child": null                            
+                        }
+                    },
+                    "right-child": {
+                        "key": "g",
+                        "val": 2,
+                        "id": 9,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                }
+            },
+            "right-child": {
+                "key": "en",
+                "val": 6,
+                "id": 3,
+                "left-child": {
+                    "key": "n",
+                    "val": 3,
+                    "id": 6,
+                    "left-child": null,
+                    "right-child": null
+                },
+                "right-child": {
+                    "key": "e",
+                    "val": 3,
+                    "id": 7,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
     "sleeplessness-1": {
         "root-pos": [775, 76.25],
         "gap-size": [20, 75, 1.75],
         "height": 5,
         "tree": {
             "key": "elnps",
-            "val": 14,
+            "val": 13,
             "id": 1,
             "left-child": {
-                "key": "e",
+                "key": "s",
                 "val": 5,
                 "id": 2,
                 "left-child": null,
                 "right-child": null
             },
             "right-child": {
-                "key": "lnps",
-                "val": 9,
+                "key": "elnp",
+                "val": 8,
                 "id": 3,
                 "left-child": {
                     "key": "lnp",
@@ -373,8 +505,80 @@ var trees = {
                     }
                 },
                 "right-child": {
-                    "key": "s",
-                    "val": 5,
+                    "key": "e",
+                    "val": 4,
+                    "id": 4,
+                    "left-child": null,
+                    "right-child": null
+                }
+            }
+        }
+    },
+    "sleeplessness-2": {
+        "root-pos": [191.25, 38.75],
+        "gap-size": [20, 75, 1.5],
+        "height": 6,
+        "tree": {
+            "key": "elnps",
+            "val": 13,
+            "id": 1,
+            "left-child": {
+                "key": "s",
+                "val": 5,
+                "id": 2,
+                "left-child": null,
+                "right-child": null
+            },
+            "right-child": {
+                "key": "elnp",
+                "val": 8,
+                "id": 3,
+                "left-child": {
+                    "key": "lnp",
+                    "val": 4,
+                    "id": 5,
+                    "left-child": {
+                        "key": "np",
+                        "val": 2,
+                        "id": 6,
+                        "left-child": {
+                            "key": "n",
+                            "val": 1,
+                            "id": 8,
+                            "left-child": {
+                                "key": "-",
+                                "val": 0,
+                                "id": 0,
+                                "left-child": null,
+                                "right-child": null
+                            },
+                            "right-child": {
+                                "key": "n",
+                                "val": 1,
+                                "id": 10,
+                                "left-child": null,
+                                "right-child": null                                
+                            }
+                        },
+                        "right-child": {
+                            "key": "p",
+                            "val": 1,
+                            "id": 9,
+                            "left-child": null,
+                            "right-child": null
+                        }
+                    },
+                    "right-child": {
+                        "key": "l",
+                        "val": 2,
+                        "id": 7,
+                        "left-child": null,
+                        "right-child": null
+                    }
+                },
+                "right-child": {
+                    "key": "e",
+                    "val": 4,
                     "id": 4,
                     "left-child": null,
                     "right-child": null
@@ -391,19 +595,31 @@ var trees = {
             "val": 8,
             "id": 1,
             "left-child": {
-                "key": "dkv",
-                "val": 3,
+                "key": "dkrv",
+                "val": 5,
                 "id": 2,
                 "left-child": {
-                    "key": "d",
-                    "val": 1,
+                    "key": "dv",
+                    "val": 2,
                     "id": 4,
-                    "left-child": null,
-                    "right-child": null
+                    "left-child": {
+                        "key": "d",
+                        "val": 1,
+                        "id": 6,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "v",
+                        "val": 1,
+                        "id": 7,
+                        "left-child": null,
+                        "right-child": null                        
+                    }
                 },
                 "right-child": {
-                    "key": "kv",
-                    "val": 2,
+                    "key": "kr",
+                    "val": 3,
                     "id": 5,
                     "left-child": {
                         "key": "k",
@@ -422,22 +638,82 @@ var trees = {
                 }
             },
             "right-child": {
-                "key": "ar",
+                "key": "a",
+                "val": 3,
+                "id": 3,
+                "left-child": null,
+                "right-child": null
+            }
+        }
+    },
+    "aardvark-2": {
+        "root-pos": [175, 38.75],
+        "gap-size": [25, 75, 1.15],
+        "height": 6,
+        "tree": {
+            "key": "adkrv",
+            "val": 8,
+            "id": 1,
+            "left-child": {
+                "key": "a",
+                "val": 3,
+                "id": 2,
+                "left-child": null,
+                "right-child": null
+            },
+            "right-child": {
+                "key": "dkrv",
                 "val": 5,
                 "id": 3,
                 "left-child": {
-                    "key": "a",
-                    "val": 3,
-                    "id": 6,
+                    "key": "r",
+                    "val": 2,
+                    "id": 4,
                     "left-child": null,
                     "right-child": null
                 },
                 "right-child": {
-                    "key": "r",
-                    "val": 2,
-                    "id": 7,
-                    "left-child": null,
-                    "right-child": null
+                    "key": "dkv",
+                    "val": 3,
+                    "id": 5,
+                    "left-child": {
+                        "key": "d",
+                        "val": 1,
+                        "id": 6,
+                        "left-child": null,
+                        "right-child": null
+                    },
+                    "right-child": {
+                        "key": "kv",
+                        "val": 2,
+                        "id": 7,
+                        "left-child": {
+                            "key": "k",
+                            "val": 1,
+                            "id": 8,
+                            "left-child": {
+                                "key": "-",
+                                "val": 0,
+                                "id": 0,
+                                "left-child": null,
+                                "right-child": null  
+                            },
+                            "right-child": {
+                                "key": "k",
+                                "val": 1,
+                                "id": 10,
+                                "left-child": null,
+                                "right-child": null  
+                            }                          
+                        },
+                        "right-child": {
+                            "key": "v",
+                            "val": 1,
+                            "id": 9,
+                            "left-child": null,
+                            "right-child": null
+                        }
+                    }
                 }
             }
         }

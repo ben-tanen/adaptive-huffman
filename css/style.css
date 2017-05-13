@@ -206,6 +206,21 @@ table th {
     font-size: 20px;
 }
 
+.word-select #fgk-label, .word-select #huffman-label {
+    width: 450px;
+    text-align: center;
+    position: fixed;
+    bottom: calc(((100vh - 450px) / 4));
+}
+
+.word-select #fgk-label {
+    left: calc((100vw - 50%) - 515px);
+}
+
+.word-select #huffman-label {
+    right: calc((100vw - 50%) - 515px);
+}
+
 /* D3 styling */
 .tooltip {
     position: fixed;
@@ -220,7 +235,8 @@ table th {
 }
 
 .tooltip.middle {
-    left: calc(50%);
+    left: calc(50% - 50px);
+    text-align: center;
 }
 
 .node {

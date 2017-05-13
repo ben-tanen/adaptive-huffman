@@ -831,9 +831,10 @@ var fxns = [
             remap_ids('fgk', [10,11], [11,10]);
             uninsert_fgk_node('fgk', [30, 75], 11, 12);
 
-            timeout = setTimeout(function() {
+            setTimeout(function() {
+                svg.select('.edge#fgk-11-0').remove()
                 move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, 31.875);
-            },1000);
+            },500);
         },
         "forward":  function() {
             update_node_values('fgk',[8],[2]);
@@ -906,6 +907,7 @@ var fxns = [
     },{
         "backward": function() {
             d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
+            update_node_values('fgk',[4,5,7,8,11,12],[2,2,3,1,1,1]); 
         },
         "forward":  none,
     },{
