@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    /*
     $('.mask#fgk').css({
         'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + ($('.mask#basic').height() - 150) + 'px)'
     });
@@ -6,6 +7,7 @@ $(document).ready(function() {
     $('.mask#end').css({
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + '+ $('.mask#fgk').height() + 'px)'
     });
+    */
 
     $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
 
@@ -14,7 +16,8 @@ $(document).ready(function() {
     init_scrolling();
 });
 
-$(window).resize(function() {    
+$(window).resize(function() {  
+    /*  
     $('.mask#fgk').css({
         'top': 'calc(' + $('.mask#basic').css('top') + ' + ' + $('.mask#basic').css('padding-bottom') + ' + ' + $('.mask#basic').height() + 'px)'
     });
@@ -22,6 +25,7 @@ $(window).resize(function() {
     $('.mask#end').css({
         'top': 'calc(' + $('.mask#fgk').css('top') + ' + ' + $('.mask#fgk').css('padding-top') + ' + ' + $('.mask#fgk').css('padding-bottom') + ' + ' + $('.mask#fgk').height() + 'px)'
     });
+    */
 
     $('body').height(($('.mask#end').position()['top'] + $('.mask#end').height() + $(window).height()) + 'px');
     
