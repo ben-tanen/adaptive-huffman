@@ -99,14 +99,24 @@ function move_node(id, ix, dx, dy) {
 
     n.attr("px", parseFloat(n.attr("px")) + dx).attr("py", parseFloat(n.attr("py")) + dy);
 
+    if (n.attr('id') === 'fgk-0') console.log()
+
     if (n.classed("circ")) {
+        var x = parseFloat(n.attr("cx")) + dx,
+            y = parseFloat(n.attr("cy")) + dy;
         n.transition()
-            .attr("cx", parseFloat(n.attr("cx")) + dx)
-            .attr("cy", parseFloat(n.attr("cy")) + dy);
+            .attr("cx", x)
+            .attr("cy", y)
+            .attr("px", x)
+            .attr("py", y);
     } else {
+        var x = parseFloat(n.attr("x")) + dx,
+            y = parseFloat(n.attr("y")) + dy;
         n.transition()
-            .attr("x", parseFloat(n.attr("x")) + dx)
-            .attr("y", parseFloat(n.attr("y")) + dy);
+            .attr("x", x)
+            .attr("y", y)
+            .attr("px", x + 12.5)
+            .attr("py", y + 12.5);
     }
 
     t.transition()

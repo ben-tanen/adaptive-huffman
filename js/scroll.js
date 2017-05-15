@@ -4,14 +4,18 @@ function init_scrolling() {
         .offset(20)
         .on('active', function(i){
             if (scroll_pos < i) {
-                if (i > 52) scroll_pos = 52;
+                if (i > 52)      scroll_pos = 52;
+                else if (i > 25) scroll_pos = Math.max(scroll_pos, 25);
+                else if (i > 18) scroll_pos = Math.max(scroll_pos, 18);
 
                 for (var j = scroll_pos; j < i; j++) {
-                    fxns[j]['forward']();
+                    if (fxns[j]['ffs']) addToQueue(fxns[j]['ffs'], (fxns[j]['fds'] ? fxns[j]['fds'] : 0));
+                    if (fxns[j]['ffa']) fxns[j]['ffa']();
                 }
             } else {
                 clearTimeout(timeout);
-                fxns[scroll_pos]['backward']();
+                if (fxns[scroll_pos]['bfs']) addToQueue(fxns[scroll_pos]['bfs'], (fxns[scroll_pos]['bds'] ? fxns[scroll_pos]['bds'] : 0));
+                if (fxns[scroll_pos]['bfa']) fxns[scroll_pos]['bfa']();
 
                 if (i == 0) {
                     svg.selectAll("*")
@@ -203,45 +207,46 @@ var timeout = null;
 var none = function() { return; };
 var fxns = [
     {
-        "backward": none,
-        "forward": none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward": function() {
+        bfs: none,
+        ffs: function() {
             show_text("abca", 775, 168.75, "28px", 0);
             show_text("00 01 10 00", 775, 281.25, "28px", 500);
         },
     },{
-        "backward": function() {
+        bfs: function() {
             clear_all_text();
         },
-        "forward": function() {
+        ffs: function() {
             clear_all_text();
 
             show_text("aabaacaa", 775, 168.75, "28px", 500);
             show_text("00 00 01 00 00 10 00 00", 775, 281.25, "28px", 1000);
         },
     },{
-        "backward": function() {
+        bfs: function() {
             clear_all_text();
 
             show_text("abca", 775, 168.75, "28px", 500);
             show_text("00 01 10 00", 775, 281.25, "28px", 500);
         },
-        "forward": function() {
+        ffs: function() {
             clear_all_text();
         },
     },{
-        "backward": function() {
+        bfs: function() {
             show_text("aabaacaa", 775, 168.75, "28px", 0);
             show_text("00 00 01 00 00 10 00 00", 775, 281.25, "28px", 0);
         },
-        "forward": none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  function() {
+        bfs: none,
+        ffa: function() {
             d3.select('#freq-table').style('display','block').transition().style('opacity', 1);
-
+        },
+        ffs: function() {
             var t = trees['bookkeeper-1'];
             build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
             svg.selectAll('.node').style('opacity', 0).style('display', 'none');
@@ -249,113 +254,133 @@ var fxns = [
             svg.selectAll('.edge').style('opacity', 0).style('display', 'none');
         },
     },{
-        "backward": function() {
+        bfa: function() {
             d3.select('#freq-table')
                 .transition().style('opacity', 0)
                 .transition().delay(200).style('display','none');
-
+        },
+        bfs: function() {
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
         },
-        "forward":  function() {
+        ffa: function() {
             $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
             $('#freq-table th:nth-of-type(' + 6 + '), #freq-table td:nth-of-type(' + 6 + ')').addClass('highlight');
         },
     },{
-        "backward": function() {
+        bfa: function() {
             $('th.highlight, td.highlight').removeClass('highlight');
         },
-        "forward":  function() {
+        ffa: function() {
             update_freq_table([['b', 1], ['e', 3], ['k', 2], ['o', 2], ['pr', 2]]);
-
+        },
+        ffs: function() {
             show_node('#basic-9');
             show_node('#basic-10');
             show_node('#basic-11');
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfa: function() {
             update_freq_table([['b', 1], ['e', 3], ['k', 2], ['o', 2], ['p', 1], ['r', 1]]);
             $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
             $('#freq-table th:nth-of-type(' + 6 + '), #freq-table td:nth-of-type(' + 6 + ')').addClass('highlight');
-
+        },
+        bfs: function() {
             hide_node('#basic-9', 100);
             hide_node('#basic-10', 100);
             hide_node('#basic-11', 100);
         },
-        "forward":  function() {
+        bds: 250,
+        ffa: function() {
             $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
             $('#freq-table th:nth-of-type(' + 1 + '), #freq-table td:nth-of-type(' + 1 + ')').addClass('highlight');
         },
     },{
-        "backward": function() {
+        bfa: function() {
             $('#freq-table th, #freq-table td').removeClass('highlight');
         },
-        "forward":  function() {
+        ffa: function() {
             update_freq_table([['bpr', 3], ['e', 3], ['k', 2], ['o', 2]]);
-
+        },
+        ffs: function() {
             show_node('#basic-5');
             show_node('#basic-8');
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfa: function() {
             update_freq_table([['b', 1], ['e', 3], ['k', 2], ['o', 2], ['pr', 2]]);
 
             $('#freq-table th:nth-of-type(' + 5 + '), #freq-table td:nth-of-type(' + 5 + ')').addClass('highlight');
             $('#freq-table th:nth-of-type(' + 1 + '), #freq-table td:nth-of-type(' + 1 + ')').addClass('highlight');
-
+        },
+        bfs: function() {
             hide_node('#basic-5', 100);
             hide_node('#basic-8', 100);
         },
-        "forward":  function() {
+        bds: 350,
+        ffa: function() {
             update_freq_table([['bpr', 3], ['e', 3], ['ko', 4]]);
-
+        },
+        ffs: function() {
             show_node('#basic-3');
             show_node('#basic-6');
             show_node('#basic-7');
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfa: function() {
             update_freq_table([['bpr', 3], ['e', 3], ['k', 2], ['o', 2]]);
-
+        },
+        bfs: function() {
             hide_node('#basic-3', 100);
             hide_node('#basic-6', 100);
             hide_node('#basic-7', 100);
         },
-        "forward":  function() {
+        bds: 350,
+        ffa: function() {
             update_freq_table([['bepr', 6], ['ko', 4]]);
-
+        },
+        ffs: function() {
             show_node('#basic-2');
             show_node('#basic-4');
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfa: function() {
             update_freq_table([['bpr', 3], ['e', 3], ['ko', 4]]);
-
+        },
+        bfs: function() {
             hide_node('#basic-2', 100);
             hide_node('#basic-4', 100);
         },
-        "forward":  function() {
+        bds: 350,
+        ffa: function() {
             update_freq_table([['bekopr', 10]]);
-
+        },
+        ffs: function() {
             show_node('#basic-1');
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfa: function() {
             update_freq_table([['bepr', 6], ['ko', 4]]);
-
+        },
+        bfs: function() {
             hide_node('#basic-1', 100);
         },
-        "forward":  function() {
+        ffa: function() {
             d3.select('#freq-table')
                 .transition().style('opacity', 0)
                 .transition().delay(200).style('display','none');
         },
     },{
-        "backward": function() {
+        bfa: function() {
             d3.select('#freq-table').style('display', 'block').transition().style('opacity', 1);
         },
-        "forward":  function() {
+        ffs: function() {
             svg.select('.node#basic-1').transition().style('fill', '#5a79e6');
             svg.select('.node#basic-2').transition().delay(200).style('fill', '#5a79e6');
             svg.select('.node#basic-5').transition().delay(400).style('fill', '#5a79e6');
@@ -365,11 +390,11 @@ var fxns = [
             show_text("p = 0110", 775, 427.5, "28px", 1250);
         },
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('.node').transition().style('fill', '#2e3037');
             clear_all_text();
         },
-        "forward":  function() {
+        ffs: function() {
             svg.selectAll('.node').transition().style('fill', '#2e3037');
             clear_all_text();
 
@@ -380,7 +405,7 @@ var fxns = [
             show_text("k = 10", 775, 427.5, "28px", 1000);
         },
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('.node').transition().style('fill', '#2e3037');
             clear_all_text();
 
@@ -392,28 +417,28 @@ var fxns = [
 
             show_text("p = 0110", 775, 427.5, "28px", 500);
         },
-        "forward":  function() {
+        ffs: function() {
             svg.selectAll('.node').transition().style('fill', '#2e3037');
             clear_all_text();
         },
     },{
-        "backward": function() {
+        bfs: function() {
             svg.select('.node#basic-1').transition().style('fill', '#5a79e6');
             svg.select('.node#basic-3').transition().style('fill', '#5a79e6');
             svg.select('.node#basic-6').transition().style('fill', '#5a79e6');
 
             show_text("k = 10", 775, 427.5, "28px", 250);
         },
-        "forward":  none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  function() {
+        bfs: none,
+        ffs: function() {
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
         },
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('.node').remove();
             svg.selectAll('.node-text').remove();
             svg.selectAll('.edge').remove();
@@ -421,16 +446,16 @@ var fxns = [
             var t = trees['bookkeeper-1'];
             build_tree('basic', t['tree'], '', t['height'], t['root-pos'], t['gap-size']);
         },
-        "forward":  none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  function() {
+        bfs: none,
+        ffs: function() {
             var [n1, t1] = new_circ_node(225, 150, "a", 9, 9, 'swp_ex1-1');
             var [n2, t2] = new_circ_node(300, 225, "b", 7, 7, 'swp_ex1-2');
             var [n3, t3] = new_circ_node(150, 225, "c", 4, 4, 'swp_ex1-3');
@@ -447,19 +472,19 @@ var fxns = [
                 .style('opacity', 0).transition().style('opacity', 1);
         },
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('*').transition().style('opacity', 0).transition().delay(250).remove();
         },
-        "forward":  function() {
+        ffs: function() {
             svg.selectAll('.sib-tree-1').transition().style('opacity', 0).transition().style('display', 'none');
 
-            var [n1, t1] = new_circ_node(225, 150 - 37.5, "a", 12, 12, 'swp_ex2-1');
-            var [n2, t2] = new_circ_node(175, 225 - 37.5, "b",  4,  7, 'swp_ex2-2');
-            var [n3, t3] = new_circ_node(275, 225 - 37.5, "c",  8,  8, 'swp_ex2-3');
-            var [n4, t4] = new_circ_node(225, 300 - 37.5, "d",  3,  6, 'swp_ex2-4');
-            var [n5, t5] = new_circ_node(325, 300 - 37.5, "e",  6,  4, 'swp_ex2-5');
-            var [n6, t6] = new_circ_node(275, 375 - 37.5, "f",  2,  2, 'swp_ex2-6');
-            var [n7, t7] = new_circ_node(175, 375 - 37.5, "g",  1,  1, 'swp_ex2-7');
+            var [n1, t1] = new_circ_node(225, 112.5, "a", 12, 12, 'swp_ex2-1');
+            var [n2, t2] = new_circ_node(175, 187.5, "b",  4,  7, 'swp_ex2-2');
+            var [n3, t3] = new_circ_node(275, 187.5, "c",  8,  8, 'swp_ex2-3');
+            var [n4, t4] = new_circ_node(225, 262.5, "d",  3,  6, 'swp_ex2-4');
+            var [n5, t5] = new_circ_node(325, 262.5, "e",  6,  4, 'swp_ex2-5');
+            var [n6, t6] = new_circ_node(175, 337.5, "f",  1,  1, 'swp_ex2-6');
+            var [n7, t7] = new_circ_node(275, 337.5, "g",  2,  2, 'swp_ex2-7');
 
             var p1 = connect_p2c(n1, n2, 'swp_ex2-1-2');
             var p2 = connect_p2c(n1, n3, 'swp_ex2-1-3');
@@ -475,159 +500,227 @@ var fxns = [
             n4.style('fill', '#af3131');
             n5.style('fill', '#af3131');
         },
+        fds: 500,
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('.sib-tree-2').transition().style('opacity', 0).transition().delay(250).remove();
 
-            svg.selectAll('.sib-tree-1').style('display','block').transition().delay(250).style('opacity', 1);
+            if (svg.selectAll('#swp_ex1-1').size() == 0) {
+                var [n1, t1] = new_circ_node(225, 150, "a", 9, 9, 'swp_ex1-1');
+                var [n2, t2] = new_circ_node(300, 225, "b", 7, 7, 'swp_ex1-2');
+                var [n3, t3] = new_circ_node(150, 225, "c", 4, 4, 'swp_ex1-3');
+                var [n4, t4] = new_circ_node(225, 300, "d", 2, 2, 'swp_ex1-4');
+                var [n5, t5] = new_circ_node( 75, 300, "e", 1, 1, 'swp_ex1-5');
+
+                var p1 = connect_p2c(n1, n2, 'swp_ex1-1-2');
+                var p2 = connect_p2c(n1, n3, 'swp_ex1-1-3');
+                var p3 = connect_p2c(n3, n4, 'swp_ex1-3-4');
+                var p4 = connect_p2c(n3, n5, 'swp_ex1-3-5');
+
+                svg.selectAll('*:not(.sib-tree-2)')
+                    .classed('sib-tree-1', true)
+                    .style('opacity', 0).transition().delay(250).style('opacity', 1);
+            } else svg.selectAll('.sib-tree-1').style('display','block').transition().delay(250).style('opacity', 1);
         },
-        "forward":  function() {
+        bds: 500,
+        ffs: function() {
             swap_subtrees('swp_ex2', [5],[4,6,7]);
         },
+        fds: 250,
     },{
-        "backward": function() {
+        bfs: function() {
             swap_subtrees('swp_ex2', [4],[5,6,7]);
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             svg.selectAll('.sib-tree-2').transition().style('opacity', 0).transition().style('display', 'none');
 
             var [n, t] = new_rect_node(225, 225, "-", 0, "-,0", "fgk-0");
 
             n.style('opacity', 0).transition().delay(250).style('opacity', 1);
             t.style('opacity', 0).transition().delay(250).style('opacity', 1);
-
-            $('.tooltip').addClass('left');
         },
+        fds: 500,
     },{
-        "backward": function() {
+        bfs: function() {
             svg.selectAll('#fgk-0').transition().style('opacity', 0).transition().delay(250).remove();
 
-            svg.selectAll('.sib-tree-2').style('display','block').transition().delay(250).style('opacity', 1);
+            if (svg.selectAll('#swp_ex2-1').size() == 0) {
+                var [n1, t1] = new_circ_node(225, 112.5, "a", 12, 12, 'swp_ex2-1');
+                var [n2, t2] = new_circ_node(175, 187.5, "b",  4,  7, 'swp_ex2-2');
+                var [n3, t3] = new_circ_node(275, 187.5, "c",  8,  8, 'swp_ex2-3');
+                var [n4, t4] = new_circ_node(325, 262.5, "d",  3,  6, 'swp_ex2-5');
+                var [n5, t5] = new_circ_node(225, 262.5, "e",  6,  4, 'swp_ex2-4');
+                var [n6, t6] = new_circ_node(275, 337.5, "f",  1,  1, 'swp_ex2-6');
+                var [n7, t7] = new_circ_node(375, 337.5, "g",  2,  2, 'swp_ex2-7');
 
-            $('.tooltip').removeClass('left');
+                var p1 = connect_p2c(n1, n2, 'swp_ex2-1-2');
+                var p2 = connect_p2c(n1, n3, 'swp_ex2-1-3');
+                var p3 = connect_p2c(n3, n4, 'swp_ex2-3-4');
+                var p4 = connect_p2c(n3, n5, 'swp_ex2-3-5');
+                var p5 = connect_p2c(n4, n6, 'swp_ex2-4-6');
+                var p6 = connect_p2c(n4, n7, 'swp_ex2-4-7');
+
+                svg.selectAll('*:not(#fgk-0)')
+                    .classed('sib-tree-2', true)
+                    .style('opacity', 0).transition().delay(250).style('opacity', 1);
+
+                n4.style('fill', '#af3131');
+                n5.style('fill', '#af3131');
+            } else svg.selectAll('.sib-tree-2').style('display','block').transition().delay(250).style('opacity', 1);
         },
-        "forward":  function() {
+        ffa: function() {
             d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
         },
     },{
-        "backward": function() {
+        bfa: function() {
             d3.select('#fgk-input')
                 .transition().style('opacity', 0)
                 .transition().delay(200).style('display','none');
         },
-        "forward":  function() {
+        ffa: function() {
             update_fgk_input("b","ookkeeper");
         },
     },{
-        "backward": function() {
+        bfa: function() {
             update_fgk_input("","bookkeeper");
         },
-        "forward":  function() {
+        ffs: function() {
             insert_fgk_node('fgk', [30, 75], 'b', 1, 1, 2);
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfs: function() {
             uninsert_fgk_node('fgk', [30, 75], 1, 2)
         },
-        "forward":  function() {
-            console.log('centering: ', center_subtree('fgk', [1,2,0]));
+        bds: 250,
+        ffs: function() {
+            center_subtree('fgk', [1,2,0]);
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             move_subtree('fgk', [1,2,0], 0, 36.25);
         },
-        "forward":  function() {
+        bds: 250,
+        ffa: function() {
             update_fgk_input("bo","okkeeper");
+        },
+        ffs: function() {
             insert_fgk_node('fgk', [30, 75], 'o', 1, 3, 4);
             remap_ids('fgk', [2,3], [3,2]);
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfa: function() {
             update_fgk_input("b","ookkeeper");
+        },
+        bfs: function() {
             uninsert_fgk_node('fgk', [30, 75], 2, 4);
             remap_ids('fgk', [2,3], [3,2]);
         },
-        "forward":  function() {
+        bds: 500,
+        ffa: function() {
             update_fgk_input("boo","kkeeper");
-            update_node_values('fgk',[1],[2]);
-            console.log('centering: ', center_subtree('fgk', [1,2,3,4,0]));
         },
+        ffs: function() {
+            update_node_values('fgk',[1],[2]);
+            center_subtree('fgk', [1,2,3,4,0]);
+        },
+        fds: 500
     },{
-        "backward": function() {
+        bfa: function() {
             update_fgk_input("bo","okkeeper");
+        },
+        bfs: function() {
             update_node_values('fgk',[1],[1]);
             move_subtree('fgk', [1,2,3,4,0], -15, 37.5);
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             update_node_values('fgk',[4],[2]);
 
             svg.select('.node#fgk-3').style('fill', '#af3131');
             svg.select('.node#fgk-4').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             update_node_values('fgk',[4],[1]);
 
             svg.select('.node#fgk-3').style('fill', '#2e3037');
             svg.select('.node#fgk-4').style('fill', '#2e3037');
         },
-        "forward":  function() {
+        bds: 250,
+        ffa: function() {
+            update_fgk_input("book", "keeper");
+        },
+        ffs: function() {
             svg.select('.node#fgk-3').style('fill', '#2e3037');
             svg.select('.node#fgk-4').style('fill', '#2e3037');
 
             swap_subtrees('fgk', [3], [4]);
 
             update_node_values('fgk',[1],[3]);
-
-            update_fgk_input("book", "keeper");
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfa: function() {
+            update_fgk_input("boo", "kkeeper");
+        },
+        bfs: function() {
             svg.select('.node#fgk-3').style('fill', '#af3131');
             svg.select('.node#fgk-4').style('fill', '#af3131');
 
             swap_subtrees('fgk', [3], [4]);
 
             update_node_values('fgk',[1],[2]);
-
-            update_fgk_input("boo", "kkeeper");
         },
-        "forward":  function() {
+        bds: 500,
+        ffs: function() {
             insert_fgk_node('fgk', [30, 75], 'k', 1, 5, 6);
-            remap_ids('fgk', [5,4], [4,5]);
         },
+        fds: 500
     },{
-        "backward": function() {
-            remap_ids('fgk', [5,4], [4,5]);
+        bfs: function() {
             uninsert_fgk_node('fgk', [30, 75], 5, 6);
         },
-        "forward":  function() {
-            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,0]));
-            update_node_values('fgk',[1,2],[4,2]);
-
+        bds: 250,
+        ffa: function() {
             update_fgk_input("bookk", "eeper");
         },
+        ffs: function() {
+            remap_ids('fgk', [5,4], [4,5]);
+            center_subtree('fgk', [1,2,3,4,5,6,0]);
+            update_node_values('fgk',[1,2],[4,2]);
+        },
+        fds: 250
     },{
-        "backward": function() {
-            update_node_values('fgk',[1,2],[3,1]);
-            move_subtree('fgk', [1,2,3,4,5,6,0], -15, 37.5);
-
+        bfa: function() {
             update_fgk_input("book", "keeper");
         },
-        "forward":  function() {
+        bfs: function() {
+            remap_ids('fgk', [5,4], [4,5]);
+            update_node_values('fgk',[1,2],[3,1]);
+            move_subtree('fgk', [1,2,3,4,5,6,0], -15, 37.5);            
+        },
+        bds: 250,
+        ffs: function() {
             update_node_values('fgk',[6],[2]);
 
             svg.select('.node#fgk-5').style('fill', '#af3131');
             svg.select('.node#fgk-6').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             update_node_values('fgk',[6],[1]);
 
             svg.select('.node#fgk-5').style('fill', '#2e3037');
             svg.select('.node#fgk-6').style('fill', '#2e3037');
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             svg.select('.node#fgk-5').style('fill', '#2e3037');
             svg.select('.node#fgk-6').style('fill', '#2e3037');
 
@@ -638,8 +731,9 @@ var fxns = [
             svg.select('.node#fgk-2').style('fill', '#af3131');
             svg.select('.node#fgk-3').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             svg.select('.node#fgk-5').style('fill', '#af3131');
             svg.select('.node#fgk-6').style('fill', '#af3131');
 
@@ -650,73 +744,86 @@ var fxns = [
             svg.select('.node#fgk-2').style('fill', '#2e3037');
             svg.select('.node#fgk-3').style('fill', '#2e3037');           
         },
-        "forward":  function() {
+        bds: 250,
+        ffa: function() {
+            update_fgk_input("bookke", "eper");
+        },
+        ffs: function() {
             svg.select('.node#fgk-2').style('fill', '#2e3037');
             svg.select('.node#fgk-3').style('fill', '#2e3037');
 
             swap_subtrees('fgk', [2,4,5,6,0], [3]);
 
             update_node_values('fgk',[1],[5]);
-
-            update_fgk_input("bookke", "eper");
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfa: function() {
+            update_fgk_input("bookk", "eeper");
+        },
+        bfs: function() {
             svg.select('.node#fgk-2').style('fill', '#af3131');
             svg.select('.node#fgk-3').style('fill', '#af3131');
 
             swap_subtrees('fgk', [3,4,5,6,0], [2]);
 
             update_node_values('fgk',[1],[4]);
-
-            update_fgk_input("bookk", "eeper");
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             insert_fgk_node('fgk', [30, 75], 'e', 1, 7, 8);
             remap_ids('fgk', [6,7], [7,6]);
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfs: function() {
             remap_ids('fgk', [6,7], [7,6]);
             uninsert_fgk_node('fgk', [30, 75], 7, 8);
         },
-        "forward":  function() {
-            console.log('centering: ', center_subtree('fgk', [1,2,3,4,5,6,7,8,0]));
+        bds: 250,
+        ffa: function() {
+             update_fgk_input("bookkee", "per");
+        },
+        ffs: function() {
+            center_subtree('fgk', [1,2,3,4,5,6,7,8,0]);
             update_node_values('fgk',[4,3,1],[2,4,6]);
-
-            update_fgk_input("bookkee", "per");
 
             timeout = setTimeout(function() {
                 move_subtree_connected('fgk', [2], -20, 0);
                 move_subtree_connected('fgk', [3,4,5,6,7,8,0], 20, 0);
-            },300);
+            }, 300);
         },
+        fds: 550
     },{
-        "backward": function() {
+        bfa: function() {
+            update_fgk_input("bookke", "eper");
+        },
+        bfs: function() {
             update_node_values('fgk',[4,3,1],[1,3,5]);
             move_subtree('fgk', [1,2,3,4,5,6,7,8,0], 30, 37.875);
-
-            update_fgk_input("bookke", "eper");
 
             timeout = setTimeout(function() {
                 move_subtree_connected('fgk', [2], 20, 0);
                 move_subtree_connected('fgk', [3,4,5,6,7,8,0], -20, 0);
             },300);
         },
-        "forward":  function() {
+        bds: 550,
+        ffs: function() {
             update_node_values('fgk',[8],[2]);
 
             svg.select('.node#fgk-7').style('fill', '#af3131');
             svg.select('.node#fgk-8').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             update_node_values('fgk',[8],[1]);
 
             svg.select('.node#fgk-7').style('fill', '#2e3037');
             svg.select('.node#fgk-8').style('fill', '#2e3037');
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             svg.select('.node#fgk-7').style('fill', '#2e3037');
             svg.select('.node#fgk-8').style('fill', '#2e3037');
 
@@ -727,8 +834,9 @@ var fxns = [
             svg.select('.node#fgk-2').style('fill', '#af3131');
             svg.select('.node#fgk-4').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             svg.select('.node#fgk-7').style('fill', '#af3131');
             svg.select('.node#fgk-8').style('fill', '#af3131');
 
@@ -739,7 +847,8 @@ var fxns = [
             svg.select('.node#fgk-2').style('fill', '#2e3037');
             svg.select('.node#fgk-4').style('fill', '#2e3037');           
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             swap_subtrees('fgk', [2], [4,6,7,8,0]);
 
             remap_ids('fgk', [6,7,4,5], [4,5,6,7]);
@@ -751,8 +860,12 @@ var fxns = [
 
             update_fgk_input("bookkeep", "er");
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfa: function() {
+            update_fgk_input("bookkee", "per");
+        },
+        bfs: function() {
             svg.select('.node#fgk-2').style('fill', '#af3131');
             svg.select('.node#fgk-6').style('fill', '#af3131');
 
@@ -761,64 +874,71 @@ var fxns = [
             remap_ids('fgk', [4,5,6,7], [6,7,4,5]);
 
             update_node_values('fgk',[1],[6]);
-
-            update_fgk_input("bookkee", "per");
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             insert_fgk_node('fgk', [30, 75], 'p', 1, 9, 10);
             remap_ids('fgk', [8,9], [9,8]);
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfs: function() {
             remap_ids('fgk', [8,9], [9,8]);
             uninsert_fgk_node('fgk', [30, 75], 9, 10);
         },
-        "forward":  function() {
-            update_node_values('fgk',[4,2,1],[2,4,8]);
-
+        bds: 250,
+        ffa: function() {
             update_fgk_input("bookkeepe", "r");
         },
+        ffs: function() {
+            update_node_values('fgk',[4,2,1],[2,4,8]);
+        },
     },{
-        "backward": function() {
-            update_node_values('fgk',[4,2,1],[1,3,7]);
-
+        bfa: function() {
             update_fgk_input("bookkeep", "er");
         },
-        "forward":  function() {
+        bfs: function() {
+            update_node_values('fgk',[4,2,1],[1,3,7]); 
+        },
+        ffs: function() {
             update_node_values('fgk',[5],[3]);
 
             svg.select('.node#fgk-5').style('fill', '#af3131');
             svg.select('.node#fgk-7').style('fill', '#af3131');
         },
     },{
-        "backward": function() {
+        bfs: function() {
             update_node_values('fgk',[5],[2]);
 
             svg.select('.node#fgk-5').style('fill', '#2e3037');
             svg.select('.node#fgk-7').style('fill', '#2e3037');
         },
-        "forward":  function() {
+        ffa: function() {
+            update_fgk_input("bookkeeper", "");
+        },
+        ffs: function() {
             svg.select('.node#fgk-5').style('fill', '#2e3037');
             svg.select('.node#fgk-7').style('fill', '#2e3037');
 
             swap_subtrees('fgk', [5], [7]);
 
             update_node_values('fgk',[3,1],[5,9]);
-
-            update_fgk_input("bookkeeper", "");
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfa: function() {
+            update_fgk_input("bookkeepe", "r");
+        },
+        bfs: function() {
             svg.select('.node#fgk-5').style('fill', '#af3131');
             svg.select('.node#fgk-7').style('fill', '#af3131');
 
             swap_subtrees('fgk', [5], [7]);
 
             update_node_values('fgk',[3,1],[4,8]);
-
-            update_fgk_input("bookkeepe", "r");           
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, -31.875);
 
             timeout = setTimeout(function() {
@@ -826,8 +946,9 @@ var fxns = [
                 remap_ids('fgk', [10,11], [11,10]);
             },500);
         },
+        fds: 750
     },{
-        "backward": function() {
+        bfs: function() {
             remap_ids('fgk', [10,11], [11,10]);
             uninsert_fgk_node('fgk', [30, 75], 11, 12);
 
@@ -836,20 +957,21 @@ var fxns = [
                 move_subtree('fgk', [1,2,3,4,5,6,7,8,9,10,0], 0, 31.875);
             },500);
         },
-        "forward":  function() {
+        bds: 750,
+        ffs: function() {
             update_node_values('fgk',[8],[2]);
 
             svg.select('.node#fgk-8').style('fill', '#af3131');
             svg.select('.node#fgk-9').style('fill', '#af3131');
         },
     },{
-        "backward": function() {
+        bfs: function() {
             update_node_values('fgk',[8],[1]);
 
             svg.select('.node#fgk-8').style('fill', '#2e3037');
             svg.select('.node#fgk-9').style('fill', '#2e3037');
         },
-        "forward":  function() {
+        ffs: function() {
             svg.select('.node#fgk-8').style('fill', '#2e3037');
             svg.select('.node#fgk-9').style('fill', '#2e3037');
 
@@ -860,8 +982,9 @@ var fxns = [
             svg.select('.node#fgk-4').style('fill', '#af3131');
             svg.select('.node#fgk-6').style('fill', '#af3131');
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             svg.select('.node#fgk-8').style('fill', '#af3131');
             svg.select('.node#fgk-9').style('fill', '#af3131');
 
@@ -872,7 +995,8 @@ var fxns = [
             svg.select('.node#fgk-4').style('fill', '#2e3037');
             svg.select('.node#fgk-6').style('fill', '#2e3037');          
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             svg.select('.node#fgk-4').style('fill', '#2e3037');
             svg.select('.node#fgk-6').style('fill', '#2e3037');
 
@@ -880,8 +1004,9 @@ var fxns = [
 
             update_node_values('fgk',[3,1],[6,10]);
         },
+        fds: 250
     },{
-        "backward": function() {
+        bfs: function() {
             svg.select('.node#fgk-4').style('fill', '#af3131');
             svg.select('.node#fgk-6').style('fill', '#af3131');
 
@@ -889,7 +1014,8 @@ var fxns = [
 
             update_node_values('fgk',[3,1],[5,9]); 
         },
-        "forward":  function() {
+        bds: 250,
+        ffs: function() {
             svg.selectAll('.node, .node-text, .edge').filter(function() {
                 return d3.select(this).attr('id').indexOf('fgk') >= 0;
             }).remove();
@@ -904,22 +1030,22 @@ var fxns = [
                 .transition().style('opacity', 0)
                 .transition().delay(200).style('display','none');
         },
+        fds: 500
     },{
-        "backward": function() {
+        bfs: function() {
             d3.select('#fgk-input').style('display','block').transition().style('opacity', 1);
             update_node_values('fgk',[4,5,7,8,11,12],[2,2,3,1,1,1]); 
         },
-        "forward":  none,
+        bds: 250,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": function() {
-            clearTimeout(timeout);
-
+        bfs: function() {
             svg.selectAll('.node, .node-text, .edge').filter(function() {
                 return true;
             }).remove();
@@ -933,16 +1059,16 @@ var fxns = [
 
             $('.word-select select').val('bookkeeper');
         },
-        "forward":  none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     },{
-        "backward": none,
-        "forward":  none,
+        bfs: none,
+        ffs: none,
     }
 ]
 
