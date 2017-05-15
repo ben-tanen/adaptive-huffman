@@ -4,9 +4,9 @@ function init_scrolling() {
         .offset(20)
         .on('active', function(i){
             if (scroll_pos < i) {
-                if (i > 52)      scroll_pos = 52;
-                else if (i > 25) scroll_pos = Math.max(scroll_pos, 25);
-                else if (i > 18) scroll_pos = Math.max(scroll_pos, 18);
+                if (i > 53)      scroll_pos = 53;
+                else if (i > 26) scroll_pos = Math.max(scroll_pos, 26);
+                else if (i > 19) scroll_pos = Math.max(scroll_pos, 19);
 
                 for (var j = scroll_pos; j < i; j++) {
                     if (fxns[j]['ffs']) addToQueue(fxns[j]['ffs'], (fxns[j]['fds'] ? fxns[j]['fds'] : 0));
@@ -429,6 +429,9 @@ var fxns = [
 
             show_text("k = 10", 775, 427.5, "28px", 250);
         },
+        ffs: none,
+    },{
+        bfs: none,
         ffs: none,
     },{
         bfs: none,

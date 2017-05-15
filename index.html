@@ -103,7 +103,7 @@
         <div class="section">
             <p>We will use this table to add nodes and edges that will build up our tree.</p>
 
-            <p>First, we start by adding leaf nodes for the two characters that occur the least. In this case, we have a tie between $b$, $p$, and $r$, so we'll just arbitrarily choose $p$ and $r$.
+            <p>First, we start by adding leaf nodes for the two characters that occur the least. In this case, we have a tie between $b$, $p$, and $r$, so we'll just arbitrarily choose $p$ and $r$.</p>
         </div>
 
         <div class="section">
@@ -211,6 +211,14 @@
             </table>
 
             <p>Using the naive scheme, encoding "bookkeeper" would take 30 bits. Using our Huffman scheme, we only use 25 bits to encode, which is a roughly a 17% improvement!
+        </div>
+
+        <div class="section">
+            <p>A small thing to note: as we were building our tree, when choosing our two least frequent characters in our table, we repeatedly had ties between three or more characters. When this happened, we would choose two of our tied elements arbitrarily.</p>
+
+            <p>By doing this, we can see that our arbitrary choice will change our tree. This means we can actually get multiple different trees from the same input string. For example, we could have initially chosen to start with $b$ and $r$ instead of $p$ and $r$. If we had done this, we would get a very similar tree but the $b$ and $p$ nodes would have been swapped.</p>
+
+            <p>While these trees might differ in their arrangement and shape, they are all valid Huffman trees. Since the algorithm is based on frequencies, this means that it doesn't matter if we assign a three-bit code to $b$ and a four-bit code to $p$ or vice versa. The tree and resulting encoding scheme will still result in the same efficiency improvement.</p>
         </div>
     
         <div class="section">
@@ -419,7 +427,7 @@
         <div class="section">
             <p>... we're done!</p>
 
-            <p>We now have a completed Huffman tree without having to preprocess the input. As with our normal Huffman trees, we can use this tree to figure out which binary codes we should assign to which characters.</p>
+            <p>We now have a completed Huffman tree without having to pre-process the input. As with our normal Huffman trees, we can use this tree to figure out which binary codes we should assign to which characters.</p>
         </div>
 
         <div class="section">

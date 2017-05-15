@@ -18,7 +18,7 @@ Roboto Mono
 body {
     background-color: #2e3037;
     color: white;
-    height: calc(15650px + 100vh);
+    height: calc(16169px + 100vh);
 }
 
 a {
@@ -84,7 +84,7 @@ table th {
 }
 
 .mask#fgk {
-    top: calc(5785px);
+    top: calc(6304px);
     right: calc((100% - 1000px) / 2);
     padding-top: 190px;
 }
@@ -92,7 +92,7 @@ table th {
 .mask#end {
     width: 100%;
     height: 200px;
-    top: calc(15492px);
+    top: calc(16011px);
 }
 
 .mask h1, .mask h2, .mask h3 {
