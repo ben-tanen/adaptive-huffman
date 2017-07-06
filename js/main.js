@@ -19,6 +19,9 @@ $(window).resize(function() {
 });
 
 $(window).scroll(function() {
+    var progress = ($(window).scrollTop() / ($('body').height() - $(window).height())).toFixed(4);
+    $('.progress-bar').css('height', 'calc(100vh * ' + progress + ')');
+
     if ($(window).scrollTop() > $('.mask#end').position()['top'] + $('.mask#end').height() - 50) {
         if ($('.word-select').css('display') == 'none') {
             d3.select('.word-select').style('opacity', 0).style('display', 'block').transition().style('opacity', 1);
