@@ -52,6 +52,8 @@ table td, table th {
     text-align: center;
     padding: 2px;
     -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
     transition: background-color 0.2s;
 }
 
@@ -67,6 +69,10 @@ table th {
     left: 0;
     background-color: #39c0ba;
     z-index: 100;
+    -webkit-transition: height 0.15s;
+    -moz-transition: height 0.15s;
+    -o-transition: height 0.15s;
+    transition: height 0.15s;
 }
 
 .svg-container {
