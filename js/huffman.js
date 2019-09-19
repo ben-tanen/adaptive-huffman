@@ -629,8 +629,8 @@ var trees = {
                         "right-child": null
                     },
                     "right-child": {
-                        "key": "v",
-                        "val": 1,
+                        "key": "r",
+                        "val": 2,
                         "id": 9,
                         "left-child": null,
                         "right-child": null
